@@ -1932,7 +1932,7 @@ svg {
   }
 
   .cats::after {
-    right: 0px;
+    right: 150px;
 
     width: 165px;
     height: 165px;
