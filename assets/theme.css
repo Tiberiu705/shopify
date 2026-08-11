@@ -2109,7 +2109,7 @@ svg {
 
 @media (max-width: 767px) {
   .cats::after {
-    width: 165px;
-    height: 165px;
+    width: 125px;
+    height: 125px;
   }
 }
