@@ -1,0 +1,92 @@
+<footer class="footer">
+  <div class="footer__media">
+    {% if section.settings.video_url != blank %}
+      <video src="{{ section.settings.video_url }}" autoplay muted loop playsinline aria-hidden="true"></video>
+    {% else %}
+      <img class="footer__poster" src="{{ 'hero.jpg' | asset_url }}" alt="" aria-hidden="true">
+    {% endif %}
+    <div class="footer__scrim"></div>
+
+    <div class="footer__cols">
+      <div>
+        <h2>{{ section.settings.newsletter_title }}</h2>
+        <p class="footer__note">{{ section.settings.newsletter_text }}</p>
+        {% form 'customer' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input class="footer__input" type="email" name="contact[email]" placeholder="Email address" required>
+          <label class="footer__consent">
+            <input type="checkbox" required>
+            <span>
+              I have read and accept the
+              <a href="{{ section.settings.privacy_page | default: '/policies/privacy-policy' }}">privacy policy</a>
+            </span>
+          </label>
+          <button class="btn" style="margin-top:16px" type="submit">Subscribe</button>
+          {% if form.posted_successfully? %}<p class="footer__note">You&rsquo;re in.</p>{% endif %}
+        {% endform %}
+      </div>
+
+      <div>
+        <h2>Shop</h2>
+        <ul>
+          {% for link in linklists.main-menu.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+          <li><a href="{{ routes.all_products_collection_url }}">All products</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Informații legale</h2>
+        <ul>
+          <li><a href="/policies/terms-of-service">Termeni și condiții</a></li>
+          <li><a href="/policies/refund-policy">Politica de retur</a></li>
+          <li><a href="/policies/shipping-policy">Politica de livrare</a></li>
+          <li><a href="/policies/privacy-policy">Politica de confidențialitate</a></li>
+          <li><a href="/pages/politica-de-cookies">Politica de cookies</a></li>
+          <li><a href="/pages/informatii-legale">Informații legale</a></li>
+          <li><a href="/pages/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Get in touch</h2>
+        <ul>
+          <li>{{ section.settings.company_name }}</li>
+          <li><a href="tel:{{ section.settings.phone | remove: ' ' }}">{{ section.settings.phone }}</a></li>
+          <li><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li>
+          <li><span style="opacity:0.7">{{ section.settings.hours }}</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <img src="{{ 'mischief-logo.png' | asset_url }}" alt="{{ shop.name }}" loading="lazy">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+      <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener" aria-label="Soluționarea Alternativă a Litigiilor - ANPC">
+        <img class="anpc-badge" src="{{ 'anpc-sal.webp' | asset_url }}" alt="Soluționarea Alternativă a Litigiilor (SAL) - ANPC" width="250" height="50" loading="lazy">
+      </a>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "url", "id": "video_url", "label": "Background video URL (upload in Content > Files)" },
+    { "type": "text", "id": "newsletter_title", "label": "Newsletter title", "default": "Get the drop first" },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter text",
+      "default": "One email per drop. No restocks, so early notice matters."
+    },
+    { "type": "text", "id": "email", "label": "Contact email", "default": "hello@mischief.store" },
+    { "type": "text", "id": "phone", "label": "Telefon", "default": "+40 700 000 000" },
+    { "type": "text", "id": "company_name", "label": "Company name", "default": "mischief" },
+    { "type": "text", "id": "hours", "label": "Opening hours", "default": "Mon–Fri, 9:00–17:00" },
+    { "type": "url", "id": "privacy_page", "label": "Privacy policy link" }
+  ]
+}
+{% endschema %}

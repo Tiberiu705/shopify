@@ -1,0 +1,133 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero"
+    },
+    "categories": {
+      "type": "category-grid",
+      "blocks": {
+        "b1": {
+          "type": "category",
+          "settings": {
+            "label": "Summer",
+            "collection": "tricouri",
+            "fallback": "cat-women.jpg"
+          }
+        },
+        "b2": {
+          "type": "category",
+          "settings": {
+            "label": "Colorway",
+            "fallback": "cat-colorway.jpg"
+          }
+        },
+        "b3": {
+          "type": "category",
+          "settings": {
+            "label": "Unfiltered",
+            "fallback": "cat-kids.jpg"
+          }
+        },
+        "b4": {
+          "type": "category",
+          "settings": {
+            "label": "2026",
+            "collection": "sapca",
+            "fallback": "cat-men.jpg"
+          }
+        },
+        "b5": {
+          "type": "category",
+          "settings": {
+            "label": "All products",
+            "fallback": "cat-accessories.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ]
+    },
+    "new": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New Arrivals",
+        "subtitle": "The latest small-run pieces, cut heavy and dyed deep.",
+        "button_label": "Shop new",
+        "count": 8
+      }
+    },
+    "summer": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "tricouri",
+        "title": "Summer",
+        "subtitle": "Lightweight cuts and washed colour for long days.",
+        "button_label": "Shop summer",
+        "count": 8
+      }
+    },
+    "drop": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "sapca",
+        "title": "2026",
+        "subtitle": "The new season, dropping in small runs.",
+        "button_label": "Shop 2026",
+        "count": 8
+      }
+    },
+    "story": {
+      "type": "story",
+      "blocks": {
+        "s1": {
+          "type": "item",
+          "settings": {
+            "heading": "Made heavy",
+            "body": "Every piece is cut from dense, structured cotton with real weight to it. We would rather ship fewer styles than thin them out."
+          }
+        },
+        "s2": {
+          "type": "item",
+          "settings": {
+            "heading": "DTF printed",
+            "body": "Prints are pressed with DTF, so the colour stays sharp and flexible wash after wash instead of fading into the fabric."
+          }
+        },
+        "s3": {
+          "type": "item",
+          "settings": {
+            "heading": "Small runs",
+            "body": "Drops are limited and rarely repeated. When a size is gone, it is genuinely gone."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    "colorway": {
+      "type": "colorway",
+      "settings": {
+        "heading": "Colorway",
+        "body": "One heavyweight cut, printed in full colour. Hand-painted lettering pressed with DTF so every shade stays loud after the wash.",
+        "button_label": "Shop colorway"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "colorway",
+    "new",
+    "summer",
+    "drop",
+    "story"
+  ]
+}

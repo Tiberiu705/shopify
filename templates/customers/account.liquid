@@ -1,0 +1,12 @@
+<section class="page">
+  <h1 class="page__title">Account</h1>
+  <p class="muted" style="margin-top:12px;font-size:13px">{{ customer.email }}</p>
+  <ul style="margin-top:24px;display:grid;gap:12px;font-size:13px">
+    {% for order in customer.orders %}
+      <li><a style="text-decoration:underline" href="{{ order.customer_url }}">{{ order.name }}</a> — {{ order.created_at | date: '%d %b %Y' }} — {{ order.total_price | money }}</li>
+    {% else %}
+      <li class="muted">No orders yet.</li>
+    {% endfor %}
+  </ul>
+  <a class="btn btn--outline" style="margin-top:24px" href="{{ routes.account_logout_url }}">Log out</a>
+</section>

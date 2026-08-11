@@ -1,0 +1,39 @@
+<section class="cart">
+  <h1 class="page__title">Your cart</h1>
+
+  {% if cart.item_count == 0 %}
+    <p class="muted" style="margin-top:24px">Your cart is empty.</p>
+    <a class="btn" style="margin-top:24px" href="{{ routes.all_products_collection_url }}">Shop all</a>
+  {% else %}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      {% for item in cart.items %}
+        <div class="cart__row">
+          <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.product.title | escape }}" loading="lazy">
+          <div style="flex:1">
+            <a class="card__title" href="{{ item.url }}">{{ item.product.title }}</a>
+            <p class="muted" style="font-size:12px;margin:4px 0">{{ item.variant.title }}</p>
+            <p style="font-size:13px;margin:0">{{ item.final_line_price | money }}</p>
+            <div class="qty" style="margin-top:8px;width:fit-content">
+              <a href="{{ item.url_to_remove }}" aria-label="Remove">&times;</a>
+              <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity">
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+      <div class="cart__totals">
+        <div class="row-between" style="margin-top:0">
+          <span>Estimated total</span>
+          <strong>{{ cart.total_price | money }}</strong>
+        </div>
+        <p class="muted" style="font-size:11px">Taxes and shipping calculated at checkout</p>
+        <button class="btn btn--outline btn--block" type="submit" name="update" style="margin-top:16px">Update cart</button>
+        <button class="btn btn--block" type="submit" name="checkout" style="margin-top:12px">Checkout</button>
+      </div>
+    </form>
+  {% endif %}
+</section>
+
+{% schema %}
+{ "name": "Cart" }
+{% endschema %}

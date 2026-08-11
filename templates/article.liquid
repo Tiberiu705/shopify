@@ -1,0 +1,5 @@
+<article class="page">
+  <h1 class="page__title">{{ article.title }}</h1>
+  <p class="muted" style="font-size:12px;margin-top:8px">{{ article.published_at | date: '%d %b %Y' }}</p>
+  <div class="rte" style="margin-top:24px;font-size:14px;line-height:1.8">{{ article.content }}</div>
+</article>

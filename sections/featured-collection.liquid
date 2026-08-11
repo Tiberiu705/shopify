@@ -1,0 +1,43 @@
+{% assign featured = collections[section.settings.collection] %}
+<section class="section">
+  <div class="section__head">
+    <h2 class="section__title">{{ section.settings.title | default: featured.title }}</h2>
+    {% if section.settings.subtitle != blank %}
+      <p class="section__sub muted">{{ section.settings.subtitle }}</p>
+    {% endif %}
+    {% if featured %}
+      <a class="btn btn--outline" style="margin-top:8px" href="{{ featured.url }}">
+        {{ section.settings.button_label | default: 'Shop all' }}
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="grid">
+    {% assign products = featured.products %}
+    {% if products.size == 0 %}
+      {% assign products = collections.all.products %}
+    {% endif %}
+    {% for product in products limit: section.settings.count %}
+      {% render 'product-card', product: product %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "title", "label": "Title", "default": "New Arrivals" },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "The latest small-run pieces, cut heavy and dyed deep."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop new" },
+    { "type": "range", "id": "count", "label": "Products", "min": 4, "max": 24, "step": 4, "default": 8 }
+  ],
+  "presets": [{ "name": "Featured collection" }]
+}
+{% endschema %}

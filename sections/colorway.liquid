@@ -1,0 +1,37 @@
+<section class="colorway">
+  <div class="colorway__inner">
+    {% if section.settings.image %}
+      {{ section.settings.image | image_url: width: 960 | image_tag: loading: 'lazy', alt: section.settings.heading, class: 'colorway__img' }}
+    {% else %}
+      <img class="colorway__img" src="{{ 'colorway-tee.png' | asset_url }}" alt="{{ section.settings.heading }}" loading="lazy" width="960" height="960">
+    {% endif %}
+    <div class="colorway__body">
+      <h2 class="section__title">{{ section.settings.heading }}</h2>
+      <p class="colorway__text">{{ section.settings.body }}</p>
+      {% if section.settings.button_label != blank %}
+        <a class="btn btn--ghost" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Colorway",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Colorway" },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Text",
+      "default": "One heavyweight cut, printed in full colour. Hand-painted lettering pressed with DTF so every shade stays loud after the wash."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop colorway" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Colorway" }]
+}
+{% endschema %}

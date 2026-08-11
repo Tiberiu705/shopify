@@ -1,0 +1,12 @@
+<section class="page">
+  <h1 class="page__title">Log in</h1>
+  {% form 'customer_login' %}
+    {{ form.errors | default_errors }}
+    <input class="search__input" type="email" name="customer[email]" placeholder="Email" required>
+    <input class="search__input" type="password" name="customer[password]" placeholder="Password">
+    <button class="btn btn--block" style="margin-top:24px" type="submit">Log in</button>
+  {% endform %}
+  <p class="muted" style="margin-top:16px;font-size:13px">
+    New here? <a style="text-decoration:underline" href="{{ routes.account_register_url }}">Create an account</a>
+  </p>
+</section>

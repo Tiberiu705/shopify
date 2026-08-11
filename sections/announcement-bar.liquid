@@ -1,0 +1,34 @@
+<div class="marquee">
+  <div class="marquee__track">
+    {% for i in (1..12) %}
+      <span class="marquee__item">{{ section.settings.marquee_text }}<span aria-hidden="true">&#10039;</span></span>
+    {% endfor %}
+  </div>
+</div>
+
+{% if section.settings.promo_text != blank %}
+  <a class="promo" href="{{ section.settings.promo_link | default: routes.all_products_collection_url }}">
+    {{ section.settings.promo_text }}
+  </a>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Scrolling text",
+      "default": "Livrare gratuita pentru toate comenzile peste 250 RON"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "New capsule is live — small runs, grab yours"
+    },
+    { "type": "url", "id": "promo_link", "label": "Promo link" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,25 @@
+<section class="section">
+  <div class="section__head">
+    <h1 class="section__title">Search</h1>
+    <form action="{{ routes.search_url }}" method="get" role="search" style="width:100%;max-width:560px">
+      <input class="search__input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products">
+    </form>
+  </div>
+
+  {% if search.performed %}
+    <p class="muted center" style="margin-top:16px;font-size:12px">{{ search.results_count }} results</p>
+    <div class="grid">
+      {% for item in search.results %}
+        {% if item.object_type == 'product' %}
+          {% render 'product-card', product: item %}
+        {% endif %}
+      {% else %}
+        <p class="muted">No products found.</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{ "name": "Search" }
+{% endschema %}

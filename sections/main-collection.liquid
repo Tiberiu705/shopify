@@ -1,0 +1,43 @@
+<section class="section">
+  <div class="section__head">
+    <h1 class="section__title">{{ collection.title }}</h1>
+    {% if collection.description != blank %}
+      <div class="section__sub muted rte">{{ collection.description }}</div>
+    {% endif %}
+  </div>
+
+  <div class="toolbar">
+    <span class="muted" style="font-size:12px;text-transform:uppercase">{{ collection.products_count }} products</span>
+    <select class="select" data-url-select aria-label="Sort by">
+      {% assign options = 'manual,best-selling,title-ascending,price-ascending,price-descending,created-descending' | split: ',' %}
+      {% assign labels = 'Featured,Best selling,A–Z,Price: low to high,Price: high to low,Newest' | split: ',' %}
+      {% for option in options %}
+        <option value="{{ collection.url }}?sort_by={{ option }}" {% if collection.sort_by == option %}selected{% endif %}>
+          {{ labels[forloop.index0] }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  {% paginate collection.products by 24 %}
+    <div class="grid">
+      {% for product in collection.products %}
+        {% render 'product-card', product: product %}
+      {% else %}
+        <p class="muted">No products found.</p>
+      {% endfor %}
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <div class="pagination">
+        {% if paginate.previous %}<a href="{{ paginate.previous.url }}">Previous</a>{% endif %}
+        <span class="muted">Page {{ paginate.current_page }} / {{ paginate.pages }}</span>
+        {% if paginate.next %}<a href="{{ paginate.next.url }}">Next</a>{% endif %}
+      </div>
+    {% endif %}
+  {% endpaginate %}
+</section>
+
+{% schema %}
+{ "name": "Collection" }
+{% endschema %}

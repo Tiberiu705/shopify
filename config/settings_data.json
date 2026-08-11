@@ -1,0 +1,31 @@
+{
+  "current": {
+    "brand_tagline": "Heavyweight streetwear made in small runs",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "marquee_text": "Livrare gratuita pentru toate comenzile peste 250 RON",
+          "promo_text": "New capsule is live — small runs, grab yours"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "newsletter_title": "Get the drop first",
+          "newsletter_text": "One email per drop. No restocks, so early notice matters.",
+          "email": "hello@mischief.store",
+          "phone": "+40 700 000 000",
+          "company_name": "mischief",
+          "hours": "Mon–Fri, 9:00–17:00"
+        }
+      }
+    }
+  }
+}
