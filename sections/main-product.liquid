@@ -1,65 +1,196 @@
-<section class="product">
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<section class="product" data-product-root>
+
   <nav class="breadcrumb">
-    <a href="{{ routes.root_url }}">Home</a><span>/</span><span style="color:var(--foreground)">{{ product.title }}</span>
+    <a href="{{ routes.root_url }}">Home</a>
+    <span>/</span>
+    <span style="color:var(--foreground)">
+      {{ product.title }}
+    </span>
   </nav>
 
   <div class="product__layout">
+
     <div data-gallery>
+
       <div class="gallery__main">
-        <img data-gallery-main src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}" width="900" height="900">
+        {% if product.featured_image %}
+          <img
+            data-gallery-main
+            src="{{ product.featured_image | image_url: width: 1200 }}"
+            alt="{{ product.title | escape }}"
+            width="900"
+            height="900"
+          >
+        {% endif %}
       </div>
+
       {% if product.images.size > 1 %}
         <div class="gallery__thumbs">
+
           {% for image in product.images %}
-            <button type="button" data-thumb="{{ image | image_url: width: 1200 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}">
-              <img src="{{ image | image_url: width: 200 }}" alt="" loading="lazy">
+            <button
+              type="button"
+              data-thumb="{{ image | image_url: width: 1200 }}"
+              aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <img
+                src="{{ image | image_url: width: 200 }}"
+                alt=""
+                loading="lazy"
+              >
             </button>
           {% endfor %}
+
         </div>
       {% endif %}
+
     </div>
 
     <div class="product__info">
-      <h1 class="product__title">{{ product.title }}</h1>
 
-      {% form 'product', product, data-product-form: '', data-money-format: shop.money_format %}
+      <h1 class="product__title">
+        {{ product.title }}
+      </h1>
+
+      {% form 'product', product, data-product-form: '' %}
+
         <div class="product__price">
-          <s data-compare-price {% unless product.compare_at_price > product.price %}hidden{% endunless %}>{{ product.compare_at_price | money }}</s>
-          <span data-price>{{ product.price | money }}</span>
+
+          {% if current_variant.compare_at_price > current_variant.price %}
+
+            {% assign compare_lei = current_variant.compare_at_price | divided_by: 100 %}
+            {% assign compare_bani = current_variant.compare_at_price | modulo: 100 %}
+
+            <s data-compare-price>
+              {{ compare_lei }}{% if compare_bani > 0 %},{% if compare_bani < 10 %}0{% endif %}{{ compare_bani }}{% endif %} lei
+            </s>
+
+          {% else %}
+
+            <s data-compare-price hidden></s>
+
+          {% endif %}
+
+          {% assign price_lei = current_variant.price | divided_by: 100 %}
+          {% assign price_bani = current_variant.price | modulo: 100 %}
+
+          <span data-price>
+            {{ price_lei }}{% if price_bani > 0 %},{% if price_bani < 10 %}0{% endif %}{{ price_bani }}{% endif %} lei
+          </span>
+
         </div>
 
         <hr class="rule">
 
         {% unless product.has_only_default_variant %}
+
           {% for option in product.options_with_values %}
-            <div class="option" data-option-index="{{ forloop.index0 }}">
+
+            <div
+              class="option"
+              data-option-index="{{ forloop.index0 }}"
+            >
+
               <div class="option__head">
-                <span>{{ option.name }} <strong data-option-value>{{ option.selected_value }}</strong></span>
+
+                <span>
+                  {{ option.name }}
+                  <strong data-option-value>
+                    {{ option.selected_value }}
+                  </strong>
+                </span>
+
                 {% if option.name contains 'Marime' or option.name contains 'Mărime' or option.name contains 'Size' %}
-                  <a style="color:var(--primary);text-decoration:underline;font-size:12px" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size guide</a>
+
+                  <a
+                    style="color:var(--primary);text-decoration:underline;font-size:12px"
+                    href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}"
+                  >
+                    Size guide
+                  </a>
+
                 {% endif %}
+
               </div>
+
               <div class="option__values">
+
                 {% for value in option.values %}
-                  <button class="swatch" type="button" data-value="{{ value | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}">{{ value }}</button>
+
+                  <button
+                    class="swatch"
+                    type="button"
+                    data-value="{{ value | escape }}"
+                    aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"
+                  >
+                    {{ value }}
+                  </button>
+
                 {% endfor %}
+
               </div>
+
             </div>
+
           {% endfor %}
+
         {% endunless %}
 
         <div class="row-between">
+
           <span>Quantity</span>
+
           <div class="qty">
-            <button type="button" data-qty="-1" aria-label="Decrease quantity">&minus;</button>
-            <input type="number" name="quantity" value="1" min="1" inputmode="numeric">
-            <button type="button" data-qty="1" aria-label="Increase quantity">+</button>
+
+            <button
+              type="button"
+              data-qty="-1"
+              aria-label="Decrease quantity"
+            >
+              &minus;
+            </button>
+
+            <input
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              inputmode="numeric"
+            >
+
+            <button
+              type="button"
+              data-qty="1"
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
+
           </div>
+
         </div>
 
-        <input type="hidden" name="id" data-variant-id value="{{ product.selected_or_first_available_variant.id }}">
-        <button class="btn btn--block" style="margin-top:24px" type="submit" data-submit {% unless product.available %}disabled{% endunless %}>
-          {% if product.available %}Add to cart{% else %}Sold out{% endif %}
+        <input
+          type="hidden"
+          name="id"
+          data-variant-id
+          value="{{ current_variant.id }}"
+        >
+
+        <button
+          class="btn btn--block"
+          style="margin-top:24px"
+          type="submit"
+          data-submit
+          {% unless current_variant.available %}disabled{% endunless %}
+        >
+          {% if current_variant.available %}
+            Add to cart
+          {% else %}
+            Sold out
+          {% endif %}
         </button>
 
         <script type="application/json" data-variants>
@@ -70,42 +201,266 @@
                 "options": {{ variant.options | json }},
                 "price": {{ variant.price }},
                 "compare_at_price": {{ variant.compare_at_price | default: 0 }},
-                "available": {{ variant.available }}
+                "available": {{ variant.available | json }}
               }{% unless forloop.last %},{% endunless %}
             {% endfor %}
           ]
         </script>
+
       {% endform %}
 
       <div class="accordions">
+
         <div class="accordion">
-          <button class="accordion__btn" type="button">Product details <span>+</span></button>
-          <div class="accordion__body rte" hidden>{{ product.description }}</div>
+
+          <button
+            class="accordion__btn"
+            type="button"
+          >
+            Product details
+            <span>+</span>
+          </button>
+
+          <div
+            class="accordion__body rte"
+            hidden
+          >
+            {{ product.description }}
+          </div>
+
         </div>
+
         <div class="accordion">
-          <button class="accordion__btn" type="button">Shipping &amp; returns <span>+</span></button>
-          <div class="accordion__body" hidden>
+
+          <button
+            class="accordion__btn"
+            type="button"
+          >
+            Shipping &amp; returns
+            <span>+</span>
+          </button>
+
+          <div
+            class="accordion__body"
+            hidden
+          >
             {{ section.settings.shipping_text }}
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
 
   {% assign related = collections.all.products %}
+
   {% if related.size > 1 %}
-    <div class="section" style="padding-left:0;padding-right:0">
-      <h2 class="section__title" style="margin-bottom:24px">You might also like</h2>
+
+    <div
+      class="section"
+      style="padding-left:0;padding-right:0"
+    >
+
+      <h2
+        class="section__title"
+        style="margin-bottom:24px"
+      >
+        You might also like
+      </h2>
+
       <div class="row-scroll">
+
         {% for item in related limit: 10 %}
+
           {% unless item.handle == product.handle %}
-            <div>{% render 'product-card', product: item %}</div>
+
+            <div>
+              {% render 'product-card', product: item %}
+            </div>
+
           {% endunless %}
+
         {% endfor %}
+
       </div>
+
     </div>
+
   {% endif %}
+
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const root = document.querySelector('[data-product-root]');
+
+  if (!root) {
+    return;
+  }
+
+  const variantsElement = root.querySelector('[data-variants]');
+  const priceElement = root.querySelector('[data-price]');
+  const compareElement = root.querySelector('[data-compare-price]');
+  const variantInput = root.querySelector('[data-variant-id]');
+  const submitButton = root.querySelector('[data-submit]');
+  const optionGroups = root.querySelectorAll('[data-option-index]');
+
+  let variants = [];
+
+  if (variantsElement) {
+    try {
+      variants = JSON.parse(variantsElement.textContent);
+    } catch (error) {
+      console.error('Variant JSON error', error);
+    }
+  }
+
+  function formatLei(cents) {
+
+    cents = Number(cents || 0);
+
+    const lei = Math.floor(cents / 100);
+    const bani = cents % 100;
+
+    if (bani === 0) {
+      return lei + ' lei';
+    }
+
+    return lei + ',' + String(bani).padStart(2, '0') + ' lei';
+  }
+
+  function selectedOptions() {
+
+    const options = [];
+
+    optionGroups.forEach(function (group) {
+
+      const selected = group.querySelector(
+        '.swatch[aria-pressed="true"]'
+      );
+
+      if (selected) {
+        options.push(selected.dataset.value);
+      }
+
+    });
+
+    return options;
+  }
+
+  function findVariant() {
+
+    const options = selectedOptions();
+
+    return variants.find(function (variant) {
+
+      if (variant.options.length !== options.length) {
+        return false;
+      }
+
+      return variant.options.every(function (option, index) {
+        return String(option) === String(options[index]);
+      });
+
+    });
+  }
+
+  function updateProduct() {
+
+    const variant = findVariant();
+
+    if (!variant) {
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Unavailable';
+      }
+
+      return;
+    }
+
+    if (variantInput) {
+      variantInput.value = variant.id;
+    }
+
+    if (priceElement) {
+      priceElement.textContent = formatLei(variant.price);
+    }
+
+    if (compareElement) {
+
+      if (
+        variant.compare_at_price &&
+        Number(variant.compare_at_price) > Number(variant.price)
+      ) {
+
+        compareElement.hidden = false;
+        compareElement.textContent =
+          formatLei(variant.compare_at_price);
+
+      } else {
+
+        compareElement.hidden = true;
+        compareElement.textContent = '';
+
+      }
+
+    }
+
+    if (submitButton) {
+
+      if (variant.available) {
+
+        submitButton.disabled = false;
+        submitButton.textContent = 'Add to cart';
+
+      } else {
+
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sold out';
+
+      }
+
+    }
+
+  }
+
+  root.querySelectorAll('.swatch').forEach(function (button) {
+
+    button.addEventListener('click', function () {
+
+      const group = button.closest('[data-option-index]');
+
+      if (!group) {
+        return;
+      }
+
+      group.querySelectorAll('.swatch').forEach(function (item) {
+        item.setAttribute('aria-pressed', 'false');
+      });
+
+      button.setAttribute('aria-pressed', 'true');
+
+      const optionValue = group.querySelector('[data-option-value]');
+
+      if (optionValue) {
+        optionValue.textContent = button.dataset.value;
+      }
+
+      updateProduct();
+
+    });
+
+  });
+
+  updateProduct();
+
+});
+</script>
 
 {% schema %}
 {
