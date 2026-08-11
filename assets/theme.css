@@ -1791,3 +1791,76 @@ ul {
     height: 65px;
   }
 }
+/* FIX MOBILE HORIZONTAL SCROLL */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
+
+body {
+  position: relative;
+}
+
+#main,
+main,
+section,
+header,
+footer {
+  max-width: 100%;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+}
+
+/* Announcement bar */
+.promo {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Sectiunea cu carduri */
+.cats {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Product grids */
+.grid,
+.fan,
+.colorway__inner,
+.home-product__inner,
+.product__layout {
+  max-width: 100%;
+}
+
+/* Footer */
+.footer,
+.footer__media {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden !important;
+  }
+
+  .wrap,
+  .section,
+  .product,
+  .colorway,
+  .cats {
+    max-width: 100%;
+  }
+}
