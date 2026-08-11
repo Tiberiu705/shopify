@@ -162,6 +162,9 @@ ul {
 }
 
 .promo {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   background: var(--ink);
   color: var(--background);
   padding: 10px 16px;
@@ -170,6 +173,7 @@ ul {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+}
 }
 
 /* Header */
