@@ -1,92 +1,681 @@
 <footer class="footer">
+
   <div class="footer__media">
-    {% if section.settings.video_url != blank %}
-      <video src="{{ section.settings.video_url }}" autoplay muted loop playsinline aria-hidden="true"></video>
+
+    {% if section.settings.footer_video != blank %}
+
+      {{
+        section.settings.footer_video
+        | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: false,
+          playsinline: true,
+          class: 'footer__video'
+      }}
+
+    {% elsif section.settings.video_url != blank %}
+
+      <video
+        class="footer__video"
+        src="{{ section.settings.video_url }}"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+      ></video>
+
+    {% elsif section.settings.footer_image != blank %}
+
+      {{
+        section.settings.footer_image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'lazy',
+          class: 'footer__poster',
+          alt: ''
+      }}
+
     {% else %}
-      <img class="footer__poster" src="{{ 'hero.jpg' | asset_url }}" alt="" aria-hidden="true">
+
+      <img
+        class="footer__poster"
+        src="{{ 'hero.jpg' | asset_url }}"
+        alt=""
+        loading="lazy"
+        aria-hidden="true"
+      >
+
     {% endif %}
+
+
     <div class="footer__scrim"></div>
 
+
     <div class="footer__cols">
+
       <div>
-        <h2>{{ section.settings.newsletter_title }}</h2>
-        <p class="footer__note">{{ section.settings.newsletter_text }}</p>
+
+        <h2>
+          {{ section.settings.newsletter_title }}
+        </h2>
+
+        <p class="footer__note">
+          {{ section.settings.newsletter_text }}
+        </p>
+
         {% form 'customer' %}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <input class="footer__input" type="email" name="contact[email]" placeholder="Email address" required>
+
+          <input
+            type="hidden"
+            name="contact[tags]"
+            value="newsletter"
+          >
+
+          <input
+            class="footer__input"
+            type="email"
+            name="contact[email]"
+            placeholder="Email address"
+            required
+          >
+
           <label class="footer__consent">
-            <input type="checkbox" required>
+
+            <input
+              type="checkbox"
+              required
+            >
+
             <span>
               I have read and accept the
-              <a href="{{ section.settings.privacy_page | default: '/policies/privacy-policy' }}">privacy policy</a>
+              <a href="{{ section.settings.privacy_page | default: '/policies/privacy-policy' }}">
+                privacy policy
+              </a>
             </span>
+
           </label>
-          <button class="btn" style="margin-top:16px" type="submit">Subscribe</button>
-          {% if form.posted_successfully? %}<p class="footer__note">You&rsquo;re in.</p>{% endif %}
+
+          <button
+            class="btn"
+            style="margin-top:16px"
+            type="submit"
+          >
+            Subscribe
+          </button>
+
+          {% if form.posted_successfully? %}
+            <p class="footer__note">
+              You're in.
+            </p>
+          {% endif %}
+
         {% endform %}
+
       </div>
 
+
       <div>
-        <h2>Shop</h2>
+
+        <h2>
+          Shop
+        </h2>
+
         <ul>
+
           {% for link in linklists.main-menu.links %}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+
+            <li>
+              <a href="{{ link.url }}">
+                {{ link.title }}
+              </a>
+            </li>
+
           {% endfor %}
-          <li><a href="{{ routes.all_products_collection_url }}">All products</a></li>
+
+          <li>
+            <a href="{{ routes.all_products_collection_url }}">
+              All products
+            </a>
+          </li>
+
         </ul>
+
       </div>
 
-      <div>
-        <h2>Informații legale</h2>
-        <ul>
-          <li><a href="/policies/terms-of-service">Termeni și condiții</a></li>
-          <li><a href="/policies/refund-policy">Politica de retur</a></li>
-          <li><a href="/policies/shipping-policy">Politica de livrare</a></li>
-          <li><a href="/policies/privacy-policy">Politica de confidențialitate</a></li>
-          <li><a href="/pages/politica-de-cookies">Politica de cookies</a></li>
-          <li><a href="/pages/informatii-legale">Informații legale</a></li>
-          <li><a href="/pages/contact">Contact</a></li>
-        </ul>
-      </div>
 
       <div>
-        <h2>Get in touch</h2>
+
+        <h2>
+          Informații legale
+        </h2>
+
         <ul>
-          <li>{{ section.settings.company_name }}</li>
-          <li><a href="tel:{{ section.settings.phone | remove: ' ' }}">{{ section.settings.phone }}</a></li>
-          <li><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li>
-          <li><span style="opacity:0.7">{{ section.settings.hours }}</span></li>
+
+          <li>
+            <a href="/policies/terms-of-service">
+              Termeni și condiții
+            </a>
+          </li>
+
+          <li>
+            <a href="/policies/refund-policy">
+              Politica de retur
+            </a>
+          </li>
+
+          <li>
+            <a href="/policies/shipping-policy">
+              Politica de livrare
+            </a>
+          </li>
+
+          <li>
+            <a href="/policies/privacy-policy">
+              Politica de confidențialitate
+            </a>
+          </li>
+
+          <li>
+            <a href="/pages/politica-de-cookies">
+              Politica de cookies
+            </a>
+          </li>
+
+          <li>
+            <a href="/pages/informatii-legale">
+              Informații legale
+            </a>
+          </li>
+
+          <li>
+            <a href="/pages/contact">
+              Contact
+            </a>
+          </li>
+
         </ul>
+
       </div>
+
+
+      <div>
+
+        <h2>
+          Get in touch
+        </h2>
+
+        <ul>
+
+          <li>
+            {{ section.settings.company_name }}
+          </li>
+
+          <li>
+            <a href="tel:{{ section.settings.phone | remove: ' ' }}">
+              {{ section.settings.phone }}
+            </a>
+          </li>
+
+          <li>
+            <a href="mailto:{{ section.settings.email }}">
+              {{ section.settings.email }}
+            </a>
+          </li>
+
+          <li>
+            <span style="opacity:0.7">
+              {{ section.settings.hours }}
+            </span>
+          </li>
+
+        </ul>
+
+      </div>
+
     </div>
+
 
     <div class="footer__bottom">
-      <img src="{{ 'mischief-logo.png' | asset_url }}" alt="{{ shop.name }}" loading="lazy">
-      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
-      <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener" aria-label="Soluționarea Alternativă a Litigiilor - ANPC">
-        <img class="anpc-badge" src="{{ 'anpc-sal.webp' | asset_url }}" alt="Soluționarea Alternativă a Litigiilor (SAL) - ANPC" width="250" height="50" loading="lazy">
+
+      <img
+        src="{{ 'mischief-logo.png' | asset_url }}"
+        alt="{{ shop.name }}"
+        loading="lazy"
+      >
+
+      <p>
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+      </p>
+
+      <a
+        href="https://anpc.ro/ce-este-sal/"
+        target="_blank"
+        rel="noopener"
+        aria-label="Soluționarea Alternativă a Litigiilor ANPC"
+      >
+
+        <img
+          class="anpc-badge"
+          src="{{ 'anpc-sal.webp' | asset_url }}"
+          alt="Soluționarea Alternativă a Litigiilor ANPC"
+          width="250"
+          height="50"
+          loading="lazy"
+        >
+
       </a>
+
     </div>
+
   </div>
+
 </footer>
+
+
+{% style %}
+
+.footer {
+  position: relative;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+
+.footer__media {
+  position: relative;
+  width: 100%;
+  min-height: 700px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+
+
+.footer__video,
+.footer__media > video,
+.footer__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+.footer__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  pointer-events: none;
+}
+
+
+.footer__cols {
+  position: relative;
+  z-index: 2;
+
+  flex: 1;
+
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 60px;
+
+  align-content: center;
+
+  padding:
+    90px
+    50px
+    60px;
+}
+
+
+.footer__cols > div {
+  min-width: 0;
+}
+
+
+.footer h2 {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.02em;
+}
+
+
+.footer ul {
+  display: grid;
+
+  gap: 9px;
+
+  margin: 18px 0 0;
+
+  padding: 0;
+
+  list-style: none;
+
+  font-size: 13px;
+}
+
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
+.footer__note {
+  max-width: 330px;
+
+  margin: 10px 0 0;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 12px;
+
+  line-height: 1.55;
+}
+
+
+.footer__input {
+  width: 100%;
+
+  max-width: 330px;
+
+  margin-top: 16px;
+
+  padding: 10px 0;
+
+  border: 0;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.55);
+
+  outline: none;
+
+  background: transparent;
+
+  color: #fff;
+
+  font-size: 13px;
+}
+
+
+.footer__input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
+.footer__consent {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  max-width: 330px;
+
+  margin-top: 16px;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+
+.footer__consent input {
+  margin-top: 2px;
+}
+
+
+.footer__consent a {
+  text-decoration: underline;
+}
+
+
+.footer .btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+
+  padding: 10px 28px;
+
+  border: 1px solid var(--primary);
+
+  background: var(--primary);
+
+  color: #fff;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+
+.footer__bottom {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+
+  padding:
+    25px
+    50px;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  color:
+    rgba(255, 255, 255, 0.72);
+
+  font-size: 11px;
+}
+
+
+.footer__bottom > img {
+  width: auto;
+  height: 30px;
+  object-fit: contain;
+}
+
+
+.footer__bottom p {
+  margin: 0;
+}
+
+
+.footer .anpc-badge {
+  width: auto;
+  height: 34px;
+  object-fit: contain;
+}
+
+
+@media (max-width: 1000px) {
+
+  .footer__cols {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 50px;
+
+    padding:
+      70px
+      35px
+      50px;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .footer__media {
+    min-height: 900px;
+  }
+
+
+  .footer__video,
+  .footer__media > video,
+  .footer__poster {
+    object-position: center center;
+  }
+
+
+  .footer__cols {
+    grid-template-columns: 1fr;
+
+    gap: 38px;
+
+    padding:
+      55px
+      20px
+      40px;
+  }
+
+
+  .footer__input,
+  .footer__note,
+  .footer__consent {
+    max-width: 100%;
+  }
+
+
+  .footer__bottom {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    padding:
+      25px
+      20px;
+  }
+
+}
+
+{% endstyle %}
+
 
 {% schema %}
 {
   "name": "Footer",
+
   "settings": [
-    { "type": "url", "id": "video_url", "label": "Background video URL (upload in Content > Files)" },
-    { "type": "text", "id": "newsletter_title", "label": "Newsletter title", "default": "Get the drop first" },
+
+    {
+      "type": "video",
+      "id": "footer_video",
+      "label": "Background video"
+    },
+
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Background video URL"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "footer_image",
+      "label": "Fallback image"
+    },
+
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter title",
+      "default": "Get the drop first"
+    },
+
     {
       "type": "text",
       "id": "newsletter_text",
       "label": "Newsletter text",
       "default": "One email per drop. No restocks, so early notice matters."
     },
-    { "type": "text", "id": "email", "label": "Contact email", "default": "hello@mischief.store" },
-    { "type": "text", "id": "phone", "label": "Telefon", "default": "+40 700 000 000" },
-    { "type": "text", "id": "company_name", "label": "Company name", "default": "mischief" },
-    { "type": "text", "id": "hours", "label": "Opening hours", "default": "Mon–Fri, 9:00–17:00" },
-    { "type": "url", "id": "privacy_page", "label": "Privacy policy link" }
+
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Contact email",
+      "default": "hello@mischief.store"
+    },
+
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Telefon",
+      "default": "+40 700 000 000"
+    },
+
+    {
+      "type": "text",
+      "id": "company_name",
+      "label": "Company name",
+      "default": "mischief"
+    },
+
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Opening hours",
+      "default": "Mon-Fri, 9:00-17:00"
+    },
+
+    {
+      "type": "url",
+      "id": "privacy_page",
+      "label": "Privacy policy link"
+    }
+
   ]
 }
 {% endschema %}
