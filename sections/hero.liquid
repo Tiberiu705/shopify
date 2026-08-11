@@ -1,28 +1,137 @@
-<section class="hero">
-  {% if section.settings.image %}
-    {{ section.settings.image | image_url: width: 1920 | image_tag: class: 'hero__img', alt: section.settings.heading }}
-  {% else %}
-    <img class="hero__img" src="{{ 'hero.jpg' | asset_url }}" alt="{{ section.settings.heading }}" width="1920" height="900">
-  {% endif %}
+<section
+  class="hero hero-video"
+  id="Hero-{{ section.id }}"
+>
+
+  <video
+    class="hero__video hero__video--desktop"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    aria-hidden="true"
+  >
+    <source
+      src="https://cdn.shopify.com/videos/c/o/v/a8404e2aea844f4a9028009c7f9ead24.mp4"
+      type="video/mp4"
+    >
+  </video>
+
+  <video
+    class="hero__video hero__video--mobile"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    aria-hidden="true"
+  >
+    <source
+      src="https://cdn.shopify.com/videos/c/o/v/edebef061d2a4912b3f3dad622e54359.mp4"
+      type="video/mp4"
+    >
+  </video>
+
+  <div class="hero__red-overlay"></div>
+
   <div class="hero__body">
-    <h1 class="hero__title">{{ section.settings.heading }}</h1>
+
+    {% if section.settings.heading != blank %}
+      <h1 class="hero__title">
+        {{ section.settings.heading }}
+      </h1>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <p class="hero__subtitle">
+        {{ section.settings.subheading }}
+      </p>
+    {% endif %}
+
     {% if section.settings.button_label != blank %}
-      <a class="btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+      <a
+        class="hero__button"
+        href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
+      >
         {{ section.settings.button_label }}
       </a>
     {% endif %}
+
   </div>
+
 </section>
+
+<script>
+(function () {
+
+  const hero = document.getElementById('Hero-{{ section.id }}');
+
+  if (!hero) {
+    return;
+  }
+
+  const videos = hero.querySelectorAll('.hero__video');
+
+  videos.forEach(function (video) {
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    const playVideo = function () {
+
+      const promise = video.play();
+
+      if (promise !== undefined) {
+        promise.catch(function () {});
+      }
+
+    };
+
+    if (video.readyState >= 2) {
+      playVideo();
+    }
+
+    video.addEventListener('canplay', playVideo);
+
+  });
+
+})();
+</script>
 
 {% schema %}
 {
-  "name": "Hero",
+  "name": "Hero video",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Background image" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "UP TO NO GOOD" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the drop" },
-    { "type": "url", "id": "button_link", "label": "Button link" }
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titlu",
+      "default": "UP TO NO GOOD"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subtitlu"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Text buton",
+      "default": "SHOP THE DROP"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link buton"
+    }
   ],
-  "presets": [{ "name": "Hero" }]
+  "presets": [
+    {
+      "name": "Hero video"
+    }
+  ]
 }
 {% endschema %}
