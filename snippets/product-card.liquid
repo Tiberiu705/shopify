@@ -1,19 +1,37 @@
 <a class="card" href="{{ product.url }}">
   <div class="card__media">
     {% if product.featured_image %}
-      {{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: product.title }}
+      {{
+        product.featured_image
+        | image_url: width: 800
+        | image_tag: loading: 'lazy', alt: product.title
+      }}
     {% endif %}
+
     {% if product.compare_at_price > product.price %}
-      {% assign off = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+      {% assign off = product.compare_at_price
+        | minus: product.price
+        | times: 100.0
+        | divided_by: product.compare_at_price
+        | round
+      %}
       <span class="card__badge">{{ off }}% OFF</span>
     {% endif %}
   </div>
-  <h3 class="card__title">{{ product.title }}</h3>
+
+  <h3 class="card__title">
+    {{ product.title }}
+  </h3>
+
   <p class="card__price">
     {% if product.compare_at_price > product.price %}
-      <s>{{ product.compare_at_price | money }}</s>
+      <s>{{ product.compare_at_price | money_amount }} lei</s>
     {% endif %}
-    <span>{{ product.price | money }}</span>
+
+    <span>{{ product.price | money_amount }} lei</span>
   </p>
-  {% unless product.available %}<p class="card__soldout">Sold out</p>{% endunless %}
+
+  {% unless product.available %}
+    <p class="card__soldout">Sold out</p>
+  {% endunless %}
 </a>
