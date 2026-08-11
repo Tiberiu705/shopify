@@ -1,55 +1,21 @@
 <footer class="footer">
   <div class="footer__media">
 
-    {% if section.settings.footer_video != blank %}
-      {{
-        section.settings.footer_video
-        | video_tag:
-          autoplay: true,
-          loop: true,
-          muted: true,
-          controls: false,
-          playsinline: true,
-          preload: 'metadata',
-          class: 'footer__video'
-      }}
-
-    {% elsif section.settings.video_url != blank %}
-      <video
-        class="footer__video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        aria-hidden="true"
+    <video
+      class="footer__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="{{ 'hero.jpg' | asset_url }}"
+      aria-hidden="true"
+    >
+      <source
+        src="{{ 'footer-video.mp4' | asset_url }}"
+        type="video/mp4"
       >
-        <source src="{{ section.settings.video_url }}" type="video/mp4">
-      </video>
-
-    {% elsif section.settings.footer_image != blank %}
-      {{
-        section.settings.footer_image
-        | image_url: width: 2400
-        | image_tag:
-          loading: 'lazy',
-          class: 'footer__poster',
-          alt: '',
-          width: 2400,
-          height: 1350
-      }}
-
-    {% else %}
-      <img
-        class="footer__poster"
-        src="{{ 'hero.jpg' | asset_url }}"
-        alt=""
-        width="1920"
-        height="1080"
-        loading="lazy"
-        aria-hidden="true"
-      >
-    {% endif %}
+    </video>
 
     <div class="footer__scrim"></div>
 
@@ -116,6 +82,7 @@
         <h2>Shop</h2>
 
         <ul>
+
           {% for link in linklists.main-menu.links %}
             <li>
               <a href="{{ link.url }}">
@@ -129,6 +96,7 @@
               All products
             </a>
           </li>
+
         </ul>
       </div>
 
@@ -137,6 +105,7 @@
         <h2>Informații legale</h2>
 
         <ul>
+
           <li>
             <a href="/policies/terms-of-service">
               Termeni și condiții
@@ -178,6 +147,7 @@
               Contact
             </a>
           </li>
+
         </ul>
       </div>
 
@@ -186,6 +156,7 @@
         <h2>Get in touch</h2>
 
         <ul>
+
           <li>
             {{ section.settings.company_name }}
           </li>
@@ -207,6 +178,7 @@
               {{ section.settings.hours }}
             </span>
           </li>
+
         </ul>
       </div>
 
@@ -255,8 +227,8 @@
   position: relative;
   width: 100%;
   margin: 0;
-  background: #000;
-  color: #fff;
+  background: #000000;
+  color: #ffffff;
   overflow: hidden;
 }
 
@@ -270,25 +242,38 @@
   flex-direction: column;
 }
 
-.footer__video,
-.footer__media > video,
-.footer__poster {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
 
-  display: block;
+/* VIDEO FUNDAL */
 
-  width: 100%;
-  height: 100%;
+.footer__video {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
 
-  max-width: none;
+  z-index: 0 !important;
 
-  object-fit: cover;
-  object-position: center center;
+  display: block !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  min-width: 100% !important;
+  min-height: 100% !important;
+
+  max-width: none !important;
+
+  object-fit: cover !important;
+  object-position: center center !important;
 
   pointer-events: none;
+
+  background: #000000;
 }
+
+
+/* OVERLAY NEGRU 50% */
 
 .footer__scrim {
   position: absolute;
@@ -304,6 +289,9 @@
   pointer-events: none;
 }
 
+
+/* CONTINUT FOOTER */
+
 .footer__cols {
   position: relative;
   z-index: 2;
@@ -313,7 +301,9 @@
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
 
   align-content: center;
 
@@ -329,7 +319,7 @@
 .footer h2 {
   margin: 0;
 
-  color: #fff;
+  color: #ffffff;
 
   font-size: 14px;
   font-weight: 700;
@@ -362,6 +352,9 @@
   text-decoration: underline;
 }
 
+
+/* NEWSLETTER */
+
 .footer__note {
   max-width: 330px;
 
@@ -384,13 +377,15 @@
 
   border: 0;
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.55);
 
   outline: none;
 
   background: transparent;
 
-  color: #fff;
+  color: #ffffff;
 
   font-size: 13px;
 }
@@ -435,11 +430,14 @@
 
   padding: 10px 28px;
 
-  border: 1px solid var(--primary);
+  border:
+    1px solid
+    var(--primary);
 
-  background: var(--primary);
+  background:
+    var(--primary);
 
-  color: #fff;
+  color: #ffffff;
 
   font-size: 11px;
 
@@ -447,6 +445,9 @@
 
   text-transform: uppercase;
 }
+
+
+/* PARTEA DE JOS */
 
 .footer__bottom {
   position: relative;
@@ -464,9 +465,12 @@
 
   padding: 25px 50px;
 
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.12);
 
-  color: rgba(255, 255, 255, 0.72);
+  color:
+    rgba(255, 255, 255, 0.72);
 
   font-size: 11px;
 }
@@ -474,6 +478,7 @@
 .footer__bottom > img {
   width: auto;
   height: 30px;
+
   object-fit: contain;
 }
 
@@ -484,13 +489,22 @@
 .footer .anpc-badge {
   width: auto;
   height: 34px;
+
   object-fit: contain;
 }
 
+
+/* TABLET */
+
 @media (max-width: 1000px) {
 
+  .footer__media {
+    min-height: 750px;
+  }
+
   .footer__cols {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
 
     gap: 50px;
 
@@ -499,16 +513,21 @@
 
 }
 
+
+/* MOBILE */
+
 @media (max-width: 650px) {
 
   .footer__media {
-    min-height: 950px;
+    min-height: 1000px;
   }
 
-  .footer__video,
-  .footer__media > video,
-  .footer__poster {
-    object-position: center center;
+  .footer__video {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+    object-position: center center !important;
   }
 
   .footer__cols {
@@ -543,24 +562,6 @@
   "name": "Footer",
 
   "settings": [
-
-    {
-      "type": "video",
-      "id": "footer_video",
-      "label": "Background video"
-    },
-
-    {
-      "type": "url",
-      "id": "video_url",
-      "label": "Background video URL"
-    },
-
-    {
-      "type": "image_picker",
-      "id": "footer_image",
-      "label": "Fallback image"
-    },
 
     {
       "type": "text",
