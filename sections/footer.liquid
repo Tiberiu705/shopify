@@ -1,8 +1,8 @@
-<footer class="footer">
+<footer class="footer" id="Footer-{{ section.id }}">
   <div class="footer__media">
 
     <video
-      id="FooterVideo"
+      id="FooterVideo-{{ section.id }}"
       class="footer__video"
       autoplay
       muted
@@ -21,7 +21,7 @@
 
     <div class="footer__cols">
 
-      <div>
+      <div class="footer__newsletter">
         <h2>{{ section.settings.newsletter_title }}</h2>
 
         <p class="footer__note">
@@ -78,108 +78,171 @@
       </div>
 
 
-      <div>
-        <h2>Shop</h2>
+      <div class="footer__accordion">
 
-        <ul>
+        <h2 class="footer__desktop-title">
+          Shop
+        </h2>
 
-          {% for link in linklists.main-menu.links %}
-            <li>
-              <a href="{{ link.url }}">
-                {{ link.title }}
-              </a>
-            </li>
-          {% endfor %}
+        <button
+          class="footer__accordion-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="FooterShop-{{ section.id }}"
+        >
+          <span>Shop</span>
+          <span class="footer__accordion-icon">+</span>
+        </button>
 
-          <li>
-            <a href="{{ routes.all_products_collection_url }}">
-              All products
-            </a>
-          </li>
+        <div
+          class="footer__accordion-content"
+          id="FooterShop-{{ section.id }}"
+        >
+          <div class="footer__accordion-inner">
+            <ul>
 
-        </ul>
+              {% for link in linklists.main-menu.links %}
+                <li>
+                  <a href="{{ link.url }}">
+                    {{ link.title }}
+                  </a>
+                </li>
+              {% endfor %}
+
+              <li>
+                <a href="{{ routes.all_products_collection_url }}">
+                  All products
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
       </div>
 
 
-      <div>
-        <h2>Informații legale</h2>
+      <div class="footer__accordion">
 
-        <ul>
+        <h2 class="footer__desktop-title">
+          Informații legale
+        </h2>
 
-          <li>
-            <a href="/policies/terms-of-service">
-              Termeni și condiții
-            </a>
-          </li>
+        <button
+          class="footer__accordion-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="FooterLegal-{{ section.id }}"
+        >
+          <span>Informații legale</span>
+          <span class="footer__accordion-icon">+</span>
+        </button>
 
-          <li>
-            <a href="/policies/refund-policy">
-              Politica de retur
-            </a>
-          </li>
+        <div
+          class="footer__accordion-content"
+          id="FooterLegal-{{ section.id }}"
+        >
+          <div class="footer__accordion-inner">
+            <ul>
 
-          <li>
-            <a href="/policies/shipping-policy">
-              Politica de livrare
-            </a>
-          </li>
+              <li>
+                <a href="/policies/terms-of-service">
+                  Termeni și condiții
+                </a>
+              </li>
 
-          <li>
-            <a href="/policies/privacy-policy">
-              Politica de confidențialitate
-            </a>
-          </li>
+              <li>
+                <a href="/policies/refund-policy">
+                  Politica de retur
+                </a>
+              </li>
 
-          <li>
-            <a href="/pages/politica-de-cookies">
-              Politica de cookies
-            </a>
-          </li>
+              <li>
+                <a href="/policies/shipping-policy">
+                  Politica de livrare
+                </a>
+              </li>
 
-          <li>
-            <a href="/pages/informatii-legale">
-              Informații legale
-            </a>
-          </li>
+              <li>
+                <a href="/policies/privacy-policy">
+                  Politica de confidențialitate
+                </a>
+              </li>
 
-          <li>
-            <a href="/pages/contact">
-              Contact
-            </a>
-          </li>
+              <li>
+                <a href="/pages/politica-de-cookies">
+                  Politica de cookies
+                </a>
+              </li>
 
-        </ul>
+              <li>
+                <a href="/pages/informatii-legale">
+                  Informații legale
+                </a>
+              </li>
+
+              <li>
+                <a href="/pages/contact">
+                  Contact
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
       </div>
 
 
-      <div>
-        <h2>Get in touch</h2>
+      <div class="footer__accordion">
 
-        <ul>
+        <h2 class="footer__desktop-title">
+          Get in touch
+        </h2>
 
-          <li>
-            {{ section.settings.company_name }}
-          </li>
+        <button
+          class="footer__accordion-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="FooterContact-{{ section.id }}"
+        >
+          <span>Get in touch</span>
+          <span class="footer__accordion-icon">+</span>
+        </button>
 
-          <li>
-            <a href="tel:{{ section.settings.phone | remove: ' ' }}">
-              {{ section.settings.phone }}
-            </a>
-          </li>
+        <div
+          class="footer__accordion-content"
+          id="FooterContact-{{ section.id }}"
+        >
+          <div class="footer__accordion-inner">
+            <ul>
 
-          <li>
-            <a href="mailto:{{ section.settings.email }}">
-              {{ section.settings.email }}
-            </a>
-          </li>
+              <li>
+                {{ section.settings.company_name }}
+              </li>
 
-          <li>
-            <span style="opacity:0.7">
-              {{ section.settings.hours }}
-            </span>
-          </li>
+              <li>
+                <a href="tel:{{ section.settings.phone | remove: ' ' }}">
+                  {{ section.settings.phone }}
+                </a>
+              </li>
 
-        </ul>
+              <li>
+                <a href="mailto:{{ section.settings.email }}">
+                  {{ section.settings.email }}
+                </a>
+              </li>
+
+              <li>
+                <span style="opacity:0.7">
+                  {{ section.settings.hours }}
+                </span>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -240,18 +303,12 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: #000000;
 }
-
-
-/* VIDEO FUNDAL */
 
 .footer__video {
   position: absolute !important;
-  top: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-
+  inset: 0 !important;
   z-index: 0 !important;
 
   display: block !important;
@@ -268,12 +325,7 @@
   object-position: center center !important;
 
   pointer-events: none;
-
-  background: #000000;
 }
-
-
-/* OVERLAY NEGRU 50% */
 
 .footer__scrim {
   position: absolute;
@@ -289,9 +341,6 @@
   pointer-events: none;
 }
 
-
-/* CONTINUT FOOTER */
-
 .footer__cols {
   position: relative;
   z-index: 2;
@@ -301,9 +350,7 @@
   width: 100%;
 
   display: grid;
-
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
   align-content: center;
 
@@ -352,9 +399,6 @@
   text-decoration: underline;
 }
 
-
-/* NEWSLETTER */
-
 .footer__note {
   max-width: 330px;
 
@@ -377,9 +421,7 @@
 
   border: 0;
 
-  border-bottom:
-    1px solid
-    rgba(255, 255, 255, 0.55);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
 
   outline: none;
 
@@ -430,24 +472,25 @@
 
   padding: 10px 28px;
 
-  border:
-    1px solid
-    var(--primary);
+  border: 1px solid var(--primary);
 
-  background:
-    var(--primary);
+  background: var(--primary);
 
   color: #ffffff;
 
   font-size: 11px;
-
   font-weight: 700;
 
   text-transform: uppercase;
 }
 
+.footer__accordion-btn {
+  display: none;
+}
 
-/* PARTEA DE JOS */
+.footer__accordion-content {
+  display: block;
+}
 
 .footer__bottom {
   position: relative;
@@ -465,12 +508,9 @@
 
   padding: 25px 50px;
 
-  border-top:
-    1px solid
-    rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 
-  color:
-    rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.72);
 
   font-size: 11px;
 }
@@ -494,8 +534,6 @@
 }
 
 
-/* TABLET */
-
 @media (max-width: 1000px) {
 
   .footer__media {
@@ -503,8 +541,7 @@
   }
 
   .footer__cols {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 50px;
 
@@ -514,12 +551,10 @@
 }
 
 
-/* MOBILE */
-
 @media (max-width: 650px) {
 
   .footer__media {
-    min-height: 1000px;
+    min-height: auto;
   }
 
   .footer__video {
@@ -531,11 +566,15 @@
   }
 
   .footer__cols {
-    grid-template-columns: 1fr;
+    display: block;
 
-    gap: 38px;
+    width: 100%;
 
-    padding: 55px 20px 40px;
+    padding: 45px 20px 25px;
+  }
+
+  .footer__newsletter {
+    margin-bottom: 35px;
   }
 
   .footer__input,
@@ -544,17 +583,277 @@
     max-width: 100%;
   }
 
+  .footer__desktop-title {
+    display: none;
+  }
+
+  .footer__accordion {
+    width: 100%;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .footer__accordion:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .footer__accordion-btn {
+    display: flex;
+
+    width: 100%;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 17px 0;
+
+    margin: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.02em;
+
+    cursor: pointer;
+  }
+
+  .footer__accordion-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    flex: 0 0 24px;
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 20px;
+    font-weight: 300;
+
+    line-height: 1;
+
+    transition: transform 0.25s ease;
+  }
+
+  .footer__accordion-content {
+    display: grid;
+
+    grid-template-rows: 0fr;
+
+    overflow: hidden;
+
+    transition: grid-template-rows 0.3s ease;
+  }
+
+  .footer__accordion-inner {
+    min-height: 0;
+
+    overflow: hidden;
+  }
+
+  .footer__accordion-content ul {
+    margin: 0;
+
+    padding: 0 0 0;
+
+    gap: 10px;
+
+    font-size: 12px;
+
+    opacity: 0;
+
+    transform: translateY(-5px);
+
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      padding 0.3s ease;
+  }
+
+  .footer__accordion.is-open .footer__accordion-content {
+    grid-template-rows: 1fr;
+  }
+
+  .footer__accordion.is-open .footer__accordion-content ul {
+    padding-bottom: 18px;
+
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+
+  .footer__accordion.is-open .footer__accordion-icon {
+    transform: rotate(45deg);
+  }
+
   .footer__bottom {
     flex-direction: column;
 
     align-items: flex-start;
 
-    padding: 25px 20px;
+    gap: 16px;
+
+    padding: 22px 20px;
   }
 
 }
 
+
 {% endstyle %}
+
+
+<script>
+(function () {
+
+  function initFooter(footer) {
+
+    if (!footer) {
+      return;
+    }
+
+    const video = footer.querySelector('.footer__video');
+
+    if (video) {
+
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.playsInline = true;
+
+      const playVideo = function () {
+        const promise = video.play();
+
+        if (promise !== undefined) {
+          promise.catch(function () {});
+        }
+      };
+
+      playVideo();
+
+      video.addEventListener('canplay', playVideo);
+
+    }
+
+
+    const accordionButtons = footer.querySelectorAll(
+      '.footer__accordion-btn'
+    );
+
+    accordionButtons.forEach(function (button) {
+
+      if (button.dataset.ready === 'true') {
+        return;
+      }
+
+      button.dataset.ready = 'true';
+
+      button.addEventListener('click', function () {
+
+        const currentAccordion = button.closest(
+          '.footer__accordion'
+        );
+
+        if (!currentAccordion) {
+          return;
+        }
+
+        const isOpen = currentAccordion.classList.contains(
+          'is-open'
+        );
+
+        footer
+          .querySelectorAll('.footer__accordion')
+          .forEach(function (accordion) {
+
+            accordion.classList.remove('is-open');
+
+            const accordionButton = accordion.querySelector(
+              '.footer__accordion-btn'
+            );
+
+            if (accordionButton) {
+              accordionButton.setAttribute(
+                'aria-expanded',
+                'false'
+              );
+            }
+
+          });
+
+
+        if (!isOpen) {
+
+          currentAccordion.classList.add('is-open');
+
+          button.setAttribute(
+            'aria-expanded',
+            'true'
+          );
+
+        }
+
+      });
+
+    });
+
+  }
+
+
+  function initCurrentFooter() {
+
+    const footer = document.getElementById(
+      'Footer-{{ section.id }}'
+    );
+
+    initFooter(footer);
+
+  }
+
+
+  if (document.readyState === 'loading') {
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      initCurrentFooter
+    );
+
+  } else {
+
+    initCurrentFooter();
+
+  }
+
+
+  document.addEventListener(
+    'shopify:section:load',
+    function (event) {
+
+      const footer = event.target.querySelector('.footer');
+
+      if (footer) {
+        initFooter(footer);
+      }
+
+    }
+  );
+
+})();
+</script>
 
 
 {% schema %}
