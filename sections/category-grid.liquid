@@ -1,47 +1,220 @@
 <section class="cats" data-fan>
+
+  <img
+    class="cats__decor cats__decor--left"
+    src="https://cdn.shopify.com/s/files/1/1065/5278/7293/files/a74a112552516ba3d21e17a57622451f.gif?v=1786416883"
+    alt=""
+    width="295"
+    height="295"
+    aria-hidden="true"
+  >
+
+  <img
+    class="cats__decor cats__decor--right"
+    src="https://cdn.shopify.com/s/files/1/1065/5278/7293/files/a74a112552516ba3d21e17a57622451f.gif?v=1786416883"
+    alt=""
+    width="295"
+    height="295"
+    aria-hidden="true"
+  >
+
   <div class="fan">
+
     {% for block in section.blocks %}
+
       {% assign block_collection = collections[block.settings.collection] %}
+
       {%- assign fallback_file = block.settings.fallback -%}
-      {%- if fallback_file == blank -%}{%- assign fallback_file = 'cat-women.jpg' -%}{%- endif -%}
-      <div class="fan__card" data-fan-card data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+
+      {%- if fallback_file == blank -%}
+        {%- assign fallback_file = 'cat-women.jpg' -%}
+      {%- endif -%}
+
+      <div
+        class="fan__card"
+        data-fan-card
+        data-index="{{ forloop.index0 }}"
+        {{ block.shopify_attributes }}
+      >
+
         {%- if block_collection and block_collection.url -%}
           {%- assign card_url = block_collection.url -%}
         {%- else -%}
           {%- assign card_url = routes.all_products_collection_url -%}
         {%- endif -%}
-        <a class="fan__link" href="{{ card_url }}">
+
+        <a
+          class="fan__link"
+          href="{{ card_url }}"
+        >
+
           {% if block.settings.image != blank %}
-            {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.label, class: 'fan__img' }}
+
+            {{
+              block.settings.image
+              | image_url: width: 900
+              | image_tag:
+                loading: 'lazy',
+                alt: block.settings.label,
+                class: 'fan__img'
+            }}
+
           {% else %}
-            <img class="fan__img" src="{{ fallback_file | asset_url }}" alt="Shop {{ shop.name }} {{ block.settings.label }}" loading="lazy" width="896" height="1200">
+
+            <img
+              class="fan__img"
+              src="{{ fallback_file | asset_url }}"
+              alt="Shop {{ shop.name }} {{ block.settings.label }}"
+              loading="lazy"
+              width="896"
+              height="1200"
+            >
+
           {% endif %}
+
           <div class="fan__label">
             <small>Shop</small>
-            <strong>{{ block.settings.label }}</strong>
+            <strong>
+              {{ block.settings.label }}
+            </strong>
           </div>
-          <span class="fan__cta">Shop now</span>
+
+          <span class="fan__cta">
+            Shop now
+          </span>
+
         </a>
+
       </div>
+
     {% endfor %}
+
   </div>
+
 
   <div class="fan__controls">
-    <button class="fan__arrow" type="button" aria-label="Previous" data-fan-prev>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+
+    <button
+      class="fan__arrow"
+      type="button"
+      aria-label="Previous"
+      data-fan-prev
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
     </button>
+
     <div class="fan__dots">
+
       {% for block in section.blocks %}
-        <button class="fan__dot" type="button" aria-label="Go to {{ block.settings.label }}" data-fan-dot data-index="{{ forloop.index0 }}"></button>
+
+        <button
+          class="fan__dot"
+          type="button"
+          aria-label="Go to {{ block.settings.label }}"
+          data-fan-dot
+          data-index="{{ forloop.index0 }}"
+        ></button>
+
       {% endfor %}
+
     </div>
-    <button class="fan__arrow" type="button" aria-label="Next" data-fan-next>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+
+    <button
+      class="fan__arrow"
+      type="button"
+      aria-label="Next"
+      data-fan-next
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
     </button>
+
   </div>
 
-  <p class="fan__name" data-fan-name>{{ section.blocks.first.settings.label }}</p>
+
+  <p
+    class="fan__name"
+    data-fan-name
+  >
+    {{ section.blocks.first.settings.label }}
+  </p>
+
 </section>
+
+
+{% style %}
+
+.cats {
+  position: relative;
+  overflow: visible;
+}
+
+.cats__decor {
+  position: absolute;
+
+  top: 0;
+
+  width: 295px;
+  height: 295px;
+
+  object-fit: contain;
+
+  z-index: 45;
+
+  pointer-events: none;
+}
+
+.cats__decor--left {
+  left: 24px;
+
+  transform: translateY(-50%);
+}
+
+.cats__decor--right {
+  right: 24px;
+
+  transform: translateY(-50%);
+}
+
+
+/* TELEFON */
+
+@media (max-width: 768px) {
+
+  .cats__decor {
+    width: 150px;
+    height: 150px;
+  }
+
+  .cats__decor--left {
+    left: 5px;
+  }
+
+  .cats__decor--right {
+    right: 5px;
+  }
+
+}
+
+{% endstyle %}
+
 
 {% schema %}
 {
@@ -52,13 +225,35 @@
       "type": "category",
       "name": "Category",
       "settings": [
-        { "type": "text", "id": "label", "label": "Label", "default": "Summer" },
-        { "type": "collection", "id": "collection", "label": "Collection" },
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "text", "id": "fallback", "label": "Built-in image file", "default": "cat-women.jpg" }
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Summer"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback",
+          "label": "Built-in image file",
+          "default": "cat-women.jpg"
+        }
       ]
     }
   ],
-  "presets": [{ "name": "Category carousel" }]
+  "presets": [
+    {
+      "name": "Category carousel"
+    }
+  ]
 }
 {% endschema %}
