@@ -1861,8 +1861,8 @@ svg {
 @media (max-width: 768px) {
   .cats::before {
     left: 12px;
-    width: 65px;
-    height: 65px;
+    width: 165px;
+    height: 165px;
   }
 }
 /* HERO FINAL FIX */
