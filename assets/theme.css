@@ -1831,40 +1831,8 @@ svg {
     max-width: 100%;
   }
 }
-.cats {
-  position: relative;
-  overflow: visible;
-}
 
-.cats::before {
-  content: "";
-  position: absolute;
 
-  left: 24px;
-  top: 0;
-
-  transform: translateY(-50%);
-
-  width: 295px;
-  height: 295px;
-
-  background-image: url("https://cdn.shopify.com/s/files/1/1065/5278/7293/files/a74a112552516ba3d21e17a57622451f.gif?v=1786416883");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-
-  z-index: 40;
-
-  pointer-events: none;
-}
-
-@media (max-width: 768px) {
-  .cats::before {
-    left: -15px;
-    width: 165px;
-    height: 165px;
-  }
-}
 .cats {
   position: relative;
   overflow: visible;
