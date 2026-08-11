@@ -2116,3 +2116,39 @@ svg {
   }
 
 }
+/* OVERLAY HERO PC */
+
+.hero.hero-video .hero__overlay {
+  position: absolute !important;
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  z-index: 1 !important;
+
+  background: #000000 !important;
+  opacity: 0.5 !important;
+
+  pointer-events: none !important;
+}
+
+
+/* CONTINUT PESTE OVERLAY */
+
+.hero.hero-video .hero__body {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+
+/* TELEFON */
+
+@media (max-width: 767px) {
+
+  .hero.hero-video .hero__overlay {
+    background: #960014 !important;
+    opacity: 0.5 !important;
+  }
+
+}
