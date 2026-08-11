@@ -1848,7 +1848,7 @@ svg {
   width: 125px;
   height: 125px;
 
-  background-image: url("https://cdn.shopify.com/s/files/1/1065/5278/7293/files/cc1cdc753d5a00a4eaa53e8c224232c2.gif?v=1786414339");
+  background-image: url("https://cdn.shopify.com/s/files/1/1065/5278/7293/files/88ecb200366538db336167e4ea4ebb6f.gif?v=1786416888");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -2109,7 +2109,7 @@ svg {
 
 @media (max-width: 767px) {
   .cats::after {
-    width: 145px;
-    height: 145px;
+    width: 165px;
+    height: 165px;
   }
 }
