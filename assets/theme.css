@@ -1931,7 +1931,7 @@ svg {
 
   z-index: 1 !important;
 
-  background: rgba(0, 0, 0, 0.5) !important;
+  background: rgba(0, 0, 0, 0.25) !important;
 
   pointer-events: none !important;
 }
@@ -2042,7 +2042,7 @@ svg {
   /* OVERLAY ROSU 50% PE TELEFON */
 
   .hero.hero-video .hero__red-overlay {
-    background: rgba(150, 0, 20, 0.5) !important;
+    background: rgba(150, 0, 20, 0.25) !important;
   }
 
 
