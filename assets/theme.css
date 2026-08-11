@@ -2078,3 +2078,40 @@ svg {
   }
 
 }
+.cats {
+  position: relative;
+  overflow: visible;
+}
+
+.cats::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  right: 25px;
+
+  transform: translateY(-50%);
+
+  width: 90px;
+  height: 90px;
+
+  background-image: url("https://cdn.shopify.com/s/files/1/1065/5278/7293/files/0f23516f4ef683a4974054739d8070ba.gif?v=1786416092");
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  z-index: 40;
+
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .cats::after {
+    right: 10px;
+
+    width: 65px;
+    height: 65px;
+  }
+}
