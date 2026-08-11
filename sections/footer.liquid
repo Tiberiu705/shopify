@@ -1,14 +1,15 @@
 <footer class="footer">
+
   <div class="footer__media">
 
     <video
+      id="FooterVideo"
       class="footer__video"
       autoplay
       muted
       loop
       playsinline
       preload="auto"
-      poster="{{ 'hero.jpg' | asset_url }}"
       aria-hidden="true"
     >
       <source
@@ -16,6 +17,34 @@
         type="video/mp4"
       >
     </video>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const video = document.getElementById('FooterVideo');
+
+      if (!video) return;
+
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.playsInline = true;
+
+      function startVideo() {
+        video.play().catch(function () {});
+      }
+
+      startVideo();
+
+      video.addEventListener('loadeddata', startVideo);
+      video.addEventListener('canplay', startVideo);
+
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) {
+          startVideo();
+        }
+      });
+    });
+    </script>
 
     <div class="footer__scrim"></div>
 
