@@ -1865,15 +1865,13 @@ svg {
     height: 65px;
   }
 }
-/* HERO FINAL FIX */
-
 .hero.hero-video {
   position: relative !important;
 
   width: 100% !important;
   height: auto !important;
 
-  aspect-ratio: 16 / 9 !important;
+  aspect-ratio: 1920 / 900 !important;
 
   min-height: 0 !important;
   max-height: none !important;
@@ -1890,6 +1888,7 @@ svg {
 
 .hero.hero-video .hero__video {
   position: absolute !important;
+
   inset: 0 !important;
 
   width: 100% !important;
@@ -1906,24 +1905,22 @@ svg {
 }
 
 
-/* PC VIDEO */
+/* PC */
 
 .hero.hero-video .hero__video--desktop {
   display: block !important;
 }
-
-
-/* MOBILE VIDEO ASCUNS PE PC */
 
 .hero.hero-video .hero__video--mobile {
   display: none !important;
 }
 
 
-/* OVERLAY NEGRU 50% PE PC */
+/* OVERLAY PC, NEGRU 50% */
 
-.hero.hero-video .hero__red-overlay {
+.hero.hero-video .hero__overlay {
   position: absolute !important;
+
   inset: 0 !important;
 
   width: 100% !important;
@@ -1967,11 +1964,11 @@ svg {
 .hero.hero-video .hero__title {
   margin: 0 !important;
 
-  max-width: 1100px;
+  max-width: 1200px;
 
   color: #ffffff !important;
 
-  font-size: clamp(60px, 7vw, 105px) !important;
+  font-size: clamp(58px, 7vw, 105px) !important;
 
   font-weight: 800 !important;
 
@@ -1980,6 +1977,21 @@ svg {
   letter-spacing: -0.04em !important;
 
   text-transform: uppercase;
+}
+
+
+/* SUBTITLU */
+
+.hero.hero-video .hero__subtitle {
+  max-width: 600px;
+
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 14px;
+
+  line-height: 1.5;
 }
 
 
@@ -2008,6 +2020,18 @@ svg {
   text-transform: uppercase;
 
   letter-spacing: 0.02em;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.hero.hero-video .hero__button:hover {
+  transform: translateY(-1px);
+
+  background: #ffffff;
+
+  color: #111111;
 }
 
 
@@ -2026,37 +2050,36 @@ svg {
   }
 
 
-  /* ASCUNDE VIDEO PC */
-
   .hero.hero-video .hero__video--desktop {
     display: none !important;
   }
 
-
-  /* ARATA VIDEO TELEFON */
 
   .hero.hero-video .hero__video--mobile {
     display: block !important;
   }
 
 
-  /* OVERLAY ROSU 50% PE TELEFON */
-
-  .hero.hero-video .hero__red-overlay {
-    background: rgba(150, 0, 20, 0.5) !important;
-  }
-
-
   .hero.hero-video .hero__video {
+    width: 100% !important;
+    height: 100% !important;
+
     object-fit: cover !important;
     object-position: center center !important;
   }
 
 
-  .hero.hero-video .hero__body {
-    padding: 25px 18px !important;
+  /* OVERLAY TELEFON, ROSU 50% */
 
-    gap: 16px !important;
+  .hero.hero-video .hero__overlay {
+    background: rgba(150, 0, 20, 0.5) !important;
+  }
+
+
+  .hero.hero-video .hero__body {
+    padding: 28px 18px !important;
+
+    gap: 17px !important;
   }
 
 
@@ -2069,14 +2092,27 @@ svg {
   }
 
 
+  .hero.hero-video .hero__subtitle {
+    font-size: 12px;
+  }
+
+
   .hero.hero-video .hero__button {
     min-width: 150px;
-
     min-height: 42px;
 
     padding: 10px 22px;
 
     font-size: 11px;
+  }
+
+}
+
+
+@media (max-width: 420px) {
+
+  .hero.hero-video .hero__title {
+    font-size: 13vw !important;
   }
 
 }
