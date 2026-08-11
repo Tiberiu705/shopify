@@ -1865,66 +1865,73 @@ svg {
     height: 65px;
   }
 }
-/* HERO VIDEO */
+/* HERO FINAL FIX */
 
 .hero.hero-video {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 650px;
-  min-height: 430px;
-  overflow: hidden;
-  background: #000;
+  position: relative !important;
+
+  width: 100% !important;
+  height: auto !important;
+
+  aspect-ratio: 16 / 9 !important;
+
+  min-height: 0 !important;
+  max-height: none !important;
+
+  overflow: hidden !important;
+
+  background: #000000 !important;
+
   isolation: isolate;
 }
 
 
 /* VIDEO */
 
-.hero__video {
-  position: absolute;
-  inset: 0;
+.hero.hero-video .hero__video {
+  position: absolute !important;
+  inset: 0 !important;
 
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
 
-  max-width: none;
+  max-width: none !important;
 
-  object-fit: cover;
-  object-position: center center;
+  object-fit: cover !important;
+  object-position: center center !important;
 
-  z-index: 0;
+  z-index: 0 !important;
 
   pointer-events: none;
 }
 
 
-/* DESKTOP VIDEO */
+/* PC VIDEO */
 
-.hero__video--desktop {
-  display: block;
+.hero.hero-video .hero__video--desktop {
+  display: block !important;
 }
 
 
-/* MOBILE VIDEO */
+/* MOBILE VIDEO ASCUNS PE PC */
 
-.hero__video--mobile {
-  display: none;
+.hero.hero-video .hero__video--mobile {
+  display: none !important;
 }
 
 
-/* OVERLAY ROSU 50% */
+/* OVERLAY NEGRU 50% PE PC */
 
-.hero__red-overlay {
-  position: absolute;
-  inset: 0;
+.hero.hero-video .hero__red-overlay {
+  position: absolute !important;
+  inset: 0 !important;
 
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
 
-  z-index: 1;
+  z-index: 1 !important;
 
-  background: rgba(150, 0, 20, 0.5);
+  background: rgba(0, 0, 0, 0.5) !important;
 
   pointer-events: none;
 }
@@ -1932,66 +1939,53 @@ svg {
 
 /* CONTINUT */
 
-.hero__body {
-  position: relative;
+.hero.hero-video .hero__body {
+  position: relative !important;
 
-  z-index: 2;
+  z-index: 2 !important;
 
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
 
-  padding: 40px 24px;
+  padding: 40px 24px !important;
 
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
 
-  align-items: center;
-  justify-content: center;
+  flex-direction: column !important;
 
-  gap: 20px;
+  align-items: center !important;
+  justify-content: center !important;
 
-  text-align: center;
+  gap: 20px !important;
+
+  text-align: center !important;
 }
 
 
 /* TITLU */
 
-.hero__title {
-  margin: 0;
+.hero.hero-video .hero__title {
+  margin: 0 !important;
 
   max-width: 1100px;
 
-  color: #ffffff;
+  color: #ffffff !important;
 
-  font-size: clamp(58px, 7vw, 105px);
-  font-weight: 800;
+  font-size: clamp(60px, 7vw, 105px) !important;
 
-  line-height: 0.95;
+  font-weight: 800 !important;
 
-  letter-spacing: -0.04em;
+  line-height: 0.95 !important;
+
+  letter-spacing: -0.04em !important;
 
   text-transform: uppercase;
 }
 
 
-/* SUBTITLU */
-
-.hero__subtitle {
-  max-width: 600px;
-
-  margin: 0;
-
-  color: rgba(255, 255, 255, 0.82);
-
-  font-size: 14px;
-
-  line-height: 1.5;
-}
-
-
 /* BUTON */
 
-.hero__button {
+.hero.hero-video .hero__button {
   display: inline-flex;
 
   align-items: center;
@@ -2014,32 +2008,6 @@ svg {
   text-transform: uppercase;
 
   letter-spacing: 0.02em;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
-}
-
-.hero__button:hover {
-  background: #ffffff;
-  color: #111111;
-
-  transform: translateY(-1px);
-}
-
-
-/* TABLET */
-
-@media (max-width: 900px) {
-
-  .hero.hero-video {
-    min-height: 500px;
-  }
-
-  .hero__title {
-    font-size: clamp(48px, 10vw, 75px);
-  }
-
 }
 
 
@@ -2048,48 +2016,60 @@ svg {
 @media (max-width: 767px) {
 
   .hero.hero-video {
-    width: 100%;
+    width: 100% !important;
+    height: auto !important;
 
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 3 / 4 !important;
 
-    height: auto;
-
-    min-height: 0;
-    max-height: none;
+    min-height: 0 !important;
+    max-height: none !important;
   }
 
-  .hero__video--desktop {
-    display: none;
+
+  /* ASCUNDE VIDEO PC */
+
+  .hero.hero-video .hero__video--desktop {
+    display: none !important;
   }
 
-  .hero__video--mobile {
-    display: block;
+
+  /* ARATA VIDEO TELEFON */
+
+  .hero.hero-video .hero__video--mobile {
+    display: block !important;
   }
 
-  .hero__video {
-    object-fit: cover;
-    object-position: center center;
+
+  /* OVERLAY ROSU 50% PE TELEFON */
+
+  .hero.hero-video .hero__red-overlay {
+    background: rgba(150, 0, 20, 0.5) !important;
   }
 
-  .hero__body {
-    padding: 30px 20px;
 
-    gap: 18px;
+  .hero.hero-video .hero__video {
+    object-fit: cover !important;
+    object-position: center center !important;
   }
 
-  .hero__title {
+
+  .hero.hero-video .hero__body {
+    padding: 25px 18px !important;
+
+    gap: 16px !important;
+  }
+
+
+  .hero.hero-video .hero__title {
     max-width: 100%;
 
-    font-size: clamp(43px, 14vw, 64px);
+    font-size: clamp(42px, 14vw, 64px) !important;
 
-    line-height: 0.95;
+    line-height: 0.95 !important;
   }
 
-  .hero__subtitle {
-    font-size: 12px;
-  }
 
-  .hero__button {
+  .hero.hero-video .hero__button {
     min-width: 150px;
 
     min-height: 42px;
@@ -2097,22 +2077,6 @@ svg {
     padding: 10px 22px;
 
     font-size: 11px;
-  }
-
-}
-
-
-/* TELEFOANE MICI */
-
-@media (max-width: 420px) {
-
-  .hero__title {
-    font-size: 13vw;
-  }
-
-  .hero__body {
-    padding-left: 16px;
-    padding-right: 16px;
   }
 
 }
