@@ -2089,9 +2089,9 @@ svg {
   position: absolute;
 
   top: 0;
-  right: 25px;
+  left: 50%;
 
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
 
   width: 90px;
   height: 90px;
@@ -2109,8 +2109,6 @@ svg {
 
 @media (max-width: 767px) {
   .cats::after {
-    right: 10px;
-
     width: 65px;
     height: 65px;
   }
