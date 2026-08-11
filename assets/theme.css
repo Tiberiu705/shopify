@@ -1860,7 +1860,7 @@ svg {
 
 @media (max-width: 768px) {
   .cats::before {
-    left: 2px;
+    left: -15px;
     width: 165px;
     height: 165px;
   }
