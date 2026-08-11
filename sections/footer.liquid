@@ -1,5 +1,4 @@
 <footer class="footer">
-
   <div class="footer__media">
 
     <video
@@ -13,38 +12,10 @@
       aria-hidden="true"
     >
       <source
-        src="{{ 'footer-video.mp4' | asset_url }}"
+        src="https://cdn.shopify.com/videos/c/o/v/856ef71375b44de58b69edd4607f81d8.mp4"
         type="video/mp4"
       >
     </video>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const video = document.getElementById('FooterVideo');
-
-      if (!video) return;
-
-      video.muted = true;
-      video.defaultMuted = true;
-      video.loop = true;
-      video.playsInline = true;
-
-      function startVideo() {
-        video.play().catch(function () {});
-      }
-
-      startVideo();
-
-      video.addEventListener('loadeddata', startVideo);
-      video.addEventListener('canplay', startVideo);
-
-      document.addEventListener('visibilitychange', function () {
-        if (!document.hidden) {
-          startVideo();
-        }
-      });
-    });
-    </script>
 
     <div class="footer__scrim"></div>
 
