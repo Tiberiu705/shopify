@@ -1865,3 +1865,254 @@ svg {
     height: 65px;
   }
 }
+/* HERO VIDEO */
+
+.hero.hero-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 650px;
+  min-height: 430px;
+  overflow: hidden;
+  background: #000;
+  isolation: isolate;
+}
+
+
+/* VIDEO */
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+
+  object-fit: cover;
+  object-position: center center;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+
+/* DESKTOP VIDEO */
+
+.hero__video--desktop {
+  display: block;
+}
+
+
+/* MOBILE VIDEO */
+
+.hero__video--mobile {
+  display: none;
+}
+
+
+/* OVERLAY ROSU 50% */
+
+.hero__red-overlay {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 1;
+
+  background: rgba(150, 0, 20, 0.5);
+
+  pointer-events: none;
+}
+
+
+/* CONTINUT */
+
+.hero__body {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 40px 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  text-align: center;
+}
+
+
+/* TITLU */
+
+.hero__title {
+  margin: 0;
+
+  max-width: 1100px;
+
+  color: #ffffff;
+
+  font-size: clamp(58px, 7vw, 105px);
+  font-weight: 800;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.04em;
+
+  text-transform: uppercase;
+}
+
+
+/* SUBTITLU */
+
+.hero__subtitle {
+  max-width: 600px;
+
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* BUTON */
+
+.hero__button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 165px;
+  min-height: 42px;
+
+  padding: 11px 26px;
+
+  border: 1px solid var(--primary);
+
+  background: var(--primary);
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.02em;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.hero__button:hover {
+  background: #ffffff;
+  color: #111111;
+
+  transform: translateY(-1px);
+}
+
+
+/* TABLET */
+
+@media (max-width: 900px) {
+
+  .hero.hero-video {
+    min-height: 500px;
+  }
+
+  .hero__title {
+    font-size: clamp(48px, 10vw, 75px);
+  }
+
+}
+
+
+/* TELEFON */
+
+@media (max-width: 767px) {
+
+  .hero.hero-video {
+    width: 100%;
+
+    aspect-ratio: 3 / 4;
+
+    height: auto;
+
+    min-height: 0;
+    max-height: none;
+  }
+
+  .hero__video--desktop {
+    display: none;
+  }
+
+  .hero__video--mobile {
+    display: block;
+  }
+
+  .hero__video {
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .hero__body {
+    padding: 30px 20px;
+
+    gap: 18px;
+  }
+
+  .hero__title {
+    max-width: 100%;
+
+    font-size: clamp(43px, 14vw, 64px);
+
+    line-height: 0.95;
+  }
+
+  .hero__subtitle {
+    font-size: 12px;
+  }
+
+  .hero__button {
+    min-width: 150px;
+
+    min-height: 42px;
+
+    padding: 10px 22px;
+
+    font-size: 11px;
+  }
+
+}
+
+
+/* TELEFOANE MICI */
+
+@media (max-width: 420px) {
+
+  .hero__title {
+    font-size: 13vw;
+  }
+
+  .hero__body {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+}
