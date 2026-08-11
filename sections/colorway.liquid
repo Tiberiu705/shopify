@@ -1,37 +1,812 @@
-<section class="colorway">
+{% assign featured_product = section.settings.product %}
+
+{% if featured_product == blank %}
+  {% assign featured_product = collections.all.products.first %}
+{% endif %}
+
+<section
+  class="colorway colorway-product"
+  id="Colorway-{{ section.id }}"
+  data-colorway-product
+  data-custom-image="{% if section.settings.image %}true{% else %}false{% endif %}"
+>
   <div class="colorway__inner">
-    {% if section.settings.image %}
-      {{ section.settings.image | image_url: width: 960 | image_tag: loading: 'lazy', alt: section.settings.heading, class: 'colorway__img' }}
-    {% else %}
-      <img class="colorway__img" src="{{ 'colorway-tee.png' | asset_url }}" alt="{{ section.settings.heading }}" loading="lazy" width="960" height="960">
-    {% endif %}
-    <div class="colorway__body">
-      <h2 class="section__title">{{ section.settings.heading }}</h2>
-      <p class="colorway__text">{{ section.settings.body }}</p>
-      {% if section.settings.button_label != blank %}
-        <a class="btn btn--ghost" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
-          {{ section.settings.button_label }}
-        </a>
-      {% endif %}
+
+    <div class="colorway-product__visual">
+
+      <div class="colorway-product__media">
+
+        <span class="colorway-glass colorway-glass--tl"></span>
+        <span class="colorway-glass colorway-glass--tr"></span>
+        <span class="colorway-glass colorway-glass--bl"></span>
+        <span class="colorway-glass colorway-glass--br"></span>
+
+        {% if section.settings.image %}
+
+          {{
+            section.settings.image
+            | image_url: width: 1400
+            | image_tag:
+              loading: 'lazy',
+              alt: section.settings.heading,
+              class: 'colorway__img colorway-product__img'
+          }}
+
+        {% elsif featured_product != blank and featured_product.featured_image %}
+
+          {{
+            featured_product.featured_image
+            | image_url: width: 1400
+            | image_tag:
+              loading: 'lazy',
+              alt: featured_product.title,
+              class: 'colorway__img colorway-product__img',
+              data-product-image: ''
+          }}
+
+        {% else %}
+
+          <img
+            class="colorway__img colorway-product__img"
+            src="{{ 'colorway-tee.png' | asset_url }}"
+            alt="{{ section.settings.heading }}"
+            loading="lazy"
+            width="960"
+            height="960"
+          >
+
+        {% endif %}
+
+        {% if featured_product != blank %}
+
+          {% assign current_variant = featured_product.selected_or_first_available_variant %}
+
+          {% if current_variant.compare_at_price > current_variant.price %}
+
+            {% assign discount_amount = current_variant.compare_at_price | minus: current_variant.price %}
+            {% assign discount_percentage = discount_amount | times: 100.0 | divided_by: current_variant.compare_at_price | round %}
+
+            <div class="colorway-product__discount" data-discount>
+              {{ discount_percentage }}% OFF
+            </div>
+
+          {% else %}
+
+            <div class="colorway-product__discount" data-discount hidden></div>
+
+          {% endif %}
+
+        {% endif %}
+
+      </div>
+
     </div>
+
+    <div class="colorway__body colorway-product__body">
+
+      {% if featured_product != blank %}
+
+        {% assign current_variant = featured_product.selected_or_first_available_variant %}
+
+        <div class="colorway-product__eyebrow">
+          {{ section.settings.heading }}
+        </div>
+
+        <h2 class="colorway-product__title">
+          {{ featured_product.title }}
+        </h2>
+
+        <div class="colorway-product__price">
+
+          {% if current_variant.compare_at_price > current_variant.price %}
+
+            {% assign compare_lei = current_variant.compare_at_price | divided_by: 100 %}
+            {% assign compare_bani = current_variant.compare_at_price | modulo: 100 %}
+
+            <s data-colorway-compare>
+              {{ compare_lei }}{% if compare_bani > 0 %},{% if compare_bani < 10 %}0{% endif %}{{ compare_bani }}{% endif %} lei
+            </s>
+
+          {% else %}
+
+            <s data-colorway-compare hidden></s>
+
+          {% endif %}
+
+          {% assign price_lei = current_variant.price | divided_by: 100 %}
+          {% assign price_bani = current_variant.price | modulo: 100 %}
+
+          <span data-colorway-price>
+            {{ price_lei }}{% if price_bani > 0 %},{% if price_bani < 10 %}0{% endif %}{{ price_bani }}{% endif %} lei
+          </span>
+
+        </div>
+
+        <p class="colorway-product__description">
+
+          {% if section.settings.body != blank %}
+            {{ section.settings.body }}
+          {% else %}
+            {{ featured_product.description | strip_html | truncatewords: 35 }}
+          {% endif %}
+
+        </p>
+
+        <div class="colorway-product__rule"></div>
+
+        {% unless featured_product.has_only_default_variant %}
+
+          <div class="colorway-product__options">
+
+            {% for option in featured_product.options_with_values %}
+
+              <div
+                class="colorway-option"
+                data-colorway-option
+                data-option-index="{{ forloop.index0 }}"
+              >
+
+                <div class="colorway-option__head">
+
+                  <div>
+                    <span>{{ option.name }}</span>
+
+                    <strong data-colorway-option-label>
+                      {{ option.selected_value }}
+                    </strong>
+                  </div>
+
+                  {% if option.name contains 'Marime' or option.name contains 'Mărime' or option.name contains 'Size' %}
+
+                    <a
+                      class="colorway-size-guide"
+                      href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}"
+                    >
+                      SIZE GUIDE
+                    </a>
+
+                  {% endif %}
+
+                </div>
+
+                <div class="colorway-option__values">
+
+                  {% for value in option.values %}
+
+                    <button
+                      type="button"
+                      class="colorway-option__button"
+                      data-colorway-value="{{ value | escape }}"
+                      aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"
+                    >
+                      {{ value }}
+                    </button>
+
+                  {% endfor %}
+
+                </div>
+
+              </div>
+
+            {% endfor %}
+
+          </div>
+
+        {% endunless %}
+
+        <div class="colorway-product__stock">
+
+          <span
+            class="colorway-product__stock-dot{% unless current_variant.available %} is-soldout{% endunless %}"
+            data-colorway-stock-dot
+          ></span>
+
+          <span data-colorway-stock>
+
+            {% if current_variant.available %}
+              În stoc
+            {% else %}
+              Stoc epuizat
+            {% endif %}
+
+          </span>
+
+        </div>
+
+        <div class="colorway-product__buy">
+
+          <div class="colorway-product__qty">
+
+            <button
+              type="button"
+              data-colorway-minus
+              aria-label="Scade cantitatea"
+            >
+              −
+            </button>
+
+            <input
+              type="number"
+              min="1"
+              value="1"
+              inputmode="numeric"
+              data-colorway-quantity
+              aria-label="Cantitate"
+            >
+
+            <button
+              type="button"
+              data-colorway-plus
+              aria-label="Crește cantitatea"
+            >
+              +
+            </button>
+
+          </div>
+
+          <button
+            type="button"
+            class="colorway-product__add"
+            data-colorway-add
+            {% unless current_variant.available %}disabled{% endunless %}
+          >
+
+            {% if current_variant.available %}
+              ADD TO CART
+            {% else %}
+              SOLD OUT
+            {% endif %}
+
+          </button>
+
+        </div>
+
+        <div class="colorway-product__features">
+
+          <div>
+            <span class="colorway-product__feature-icon">01</span>
+            <span>Livrare rapidă</span>
+          </div>
+
+          <div>
+            <span class="colorway-product__feature-icon">02</span>
+            <span>Plată securizată</span>
+          </div>
+
+          <div>
+            <span class="colorway-product__feature-icon">03</span>
+            <span>Retur simplu</span>
+          </div>
+
+        </div>
+
+        <a
+          class="colorway-product__details"
+          href="{{ featured_product.url }}"
+        >
+          VEZI TOATE DETALIILE PRODUSULUI
+        </a>
+
+        <script type="application/json" data-colorway-variants>
+          [
+            {% for variant in featured_product.variants %}
+              {
+                "id": {{ variant.id }},
+                "options": {{ variant.options | json }},
+                "price": {{ variant.price }},
+                "compare_at_price": {{ variant.compare_at_price | default: 0 }},
+                "available": {{ variant.available | json }},
+                "image":
+                {% if variant.featured_image %}
+                  {{ variant.featured_image | image_url: width: 1400 | json }}
+                {% elsif featured_product.featured_image %}
+                  {{ featured_product.featured_image | image_url: width: 1400 | json }}
+                {% else %}
+                  null
+                {% endif %}
+              }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          ]
+        </script>
+
+      {% else %}
+
+        <h2 class="section__title">
+          {{ section.settings.heading }}
+        </h2>
+
+        <p class="colorway__text">
+          {{ section.settings.body }}
+        </p>
+
+        {% if section.settings.button_label != blank %}
+
+          <a
+            class="btn btn--ghost"
+            href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
+          >
+            {{ section.settings.button_label }}
+          </a>
+
+        {% endif %}
+
+      {% endif %}
+
+    </div>
+
   </div>
 </section>
+
+<script>
+(function () {
+
+  function initColorwayProduct(section) {
+
+    if (!section || section.dataset.initialized === 'true') {
+      return;
+    }
+
+    section.dataset.initialized = 'true';
+
+    const variantsScript = section.querySelector('[data-colorway-variants]');
+
+    if (!variantsScript) {
+      return;
+    }
+
+    let variants = [];
+
+    try {
+      variants = JSON.parse(variantsScript.textContent);
+    } catch (error) {
+      console.error('Colorway variants error', error);
+      return;
+    }
+
+    const priceElement = section.querySelector('[data-colorway-price]');
+    const compareElement = section.querySelector('[data-colorway-compare]');
+    const discountElement = section.querySelector('[data-discount]');
+    const stockElement = section.querySelector('[data-colorway-stock]');
+    const stockDot = section.querySelector('[data-colorway-stock-dot]');
+    const addButton = section.querySelector('[data-colorway-add]');
+    const quantityInput = section.querySelector('[data-colorway-quantity]');
+    const productImage = section.querySelector('[data-product-image]');
+
+    const customImage = section.dataset.customImage === 'true';
+
+    function formatLei(cents) {
+
+      const value = Number(cents || 0);
+
+      const lei = Math.floor(value / 100);
+      const bani = value % 100;
+
+      if (bani === 0) {
+        return lei + ' lei';
+      }
+
+      return lei + ',' + String(bani).padStart(2, '0') + ' lei';
+    }
+
+    function getSelectedOptions() {
+
+      const selected = [];
+
+      section.querySelectorAll('[data-colorway-option]').forEach(function (group) {
+
+        const activeButton = group.querySelector(
+          '[data-colorway-value][aria-pressed="true"]'
+        );
+
+        if (activeButton) {
+          selected.push(activeButton.dataset.colorwayValue);
+        }
+
+      });
+
+      return selected;
+    }
+
+    function getCurrentVariant() {
+
+      if (variants.length === 1) {
+        return variants[0];
+      }
+
+      const selectedOptions = getSelectedOptions();
+
+      return variants.find(function (variant) {
+
+        if (variant.options.length !== selectedOptions.length) {
+          return false;
+        }
+
+        return variant.options.every(function (option, index) {
+          return String(option) === String(selectedOptions[index]);
+        });
+
+      });
+
+    }
+
+    function updateDiscount(variant) {
+
+      if (!discountElement) {
+        return;
+      }
+
+      if (
+        variant.compare_at_price &&
+        Number(variant.compare_at_price) > Number(variant.price)
+      ) {
+
+        const discount = Math.round(
+          (
+            (
+              Number(variant.compare_at_price) -
+              Number(variant.price)
+            ) /
+            Number(variant.compare_at_price)
+          ) * 100
+        );
+
+        discountElement.hidden = false;
+        discountElement.textContent = discount + '% OFF';
+
+      } else {
+
+        discountElement.hidden = true;
+        discountElement.textContent = '';
+
+      }
+
+    }
+
+    function updateProduct() {
+
+      const variant = getCurrentVariant();
+
+      if (!variant) {
+
+        if (addButton) {
+          addButton.disabled = true;
+          addButton.textContent = 'UNAVAILABLE';
+        }
+
+        if (stockElement) {
+          stockElement.textContent = 'Indisponibil';
+        }
+
+        if (stockDot) {
+          stockDot.classList.add('is-soldout');
+        }
+
+        return;
+      }
+
+      if (priceElement) {
+        priceElement.textContent = formatLei(variant.price);
+      }
+
+      if (compareElement) {
+
+        if (
+          variant.compare_at_price &&
+          Number(variant.compare_at_price) > Number(variant.price)
+        ) {
+
+          compareElement.hidden = false;
+          compareElement.textContent =
+            formatLei(variant.compare_at_price);
+
+        } else {
+
+          compareElement.hidden = true;
+          compareElement.textContent = '';
+
+        }
+
+      }
+
+      updateDiscount(variant);
+
+      if (
+        !customImage &&
+        productImage &&
+        variant.image
+      ) {
+        productImage.src = variant.image;
+      }
+
+      if (variant.available) {
+
+        if (addButton) {
+          addButton.disabled = false;
+          addButton.textContent = 'ADD TO CART';
+        }
+
+        if (stockElement) {
+          stockElement.textContent = 'În stoc';
+        }
+
+        if (stockDot) {
+          stockDot.classList.remove('is-soldout');
+        }
+
+      } else {
+
+        if (addButton) {
+          addButton.disabled = true;
+          addButton.textContent = 'SOLD OUT';
+        }
+
+        if (stockElement) {
+          stockElement.textContent = 'Stoc epuizat';
+        }
+
+        if (stockDot) {
+          stockDot.classList.add('is-soldout');
+        }
+
+      }
+
+    }
+
+    section.querySelectorAll('[data-colorway-value]').forEach(function (button) {
+
+      button.addEventListener('click', function () {
+
+        const group = button.closest('[data-colorway-option]');
+
+        if (!group) {
+          return;
+        }
+
+        group
+          .querySelectorAll('[data-colorway-value]')
+          .forEach(function (otherButton) {
+            otherButton.setAttribute('aria-pressed', 'false');
+          });
+
+        button.setAttribute('aria-pressed', 'true');
+
+        const label = group.querySelector(
+          '[data-colorway-option-label]'
+        );
+
+        if (label) {
+          label.textContent = button.dataset.colorwayValue;
+        }
+
+        updateProduct();
+
+      });
+
+    });
+
+    const minusButton = section.querySelector('[data-colorway-minus]');
+    const plusButton = section.querySelector('[data-colorway-plus]');
+
+    if (minusButton && quantityInput) {
+
+      minusButton.addEventListener('click', function () {
+
+        const currentValue =
+          Math.max(1, Number(quantityInput.value) || 1);
+
+        quantityInput.value =
+          Math.max(1, currentValue - 1);
+
+      });
+
+    }
+
+    if (plusButton && quantityInput) {
+
+      plusButton.addEventListener('click', function () {
+
+        const currentValue =
+          Math.max(1, Number(quantityInput.value) || 1);
+
+        quantityInput.value =
+          currentValue + 1;
+
+      });
+
+    }
+
+    if (addButton) {
+
+      addButton.addEventListener('click', async function () {
+
+        const variant = getCurrentVariant();
+
+        if (!variant || !variant.available) {
+          return;
+        }
+
+        const quantity =
+          Math.max(
+            1,
+            Number(quantityInput ? quantityInput.value : 1) || 1
+          );
+
+        addButton.disabled = true;
+        addButton.textContent = 'ADDING...';
+
+        try {
+
+          const root =
+            window.Shopify &&
+            window.Shopify.routes &&
+            window.Shopify.routes.root
+              ? window.Shopify.routes.root
+              : '/';
+
+          const response = await fetch(
+            root + 'cart/add.js',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                items: [
+                  {
+                    id: variant.id,
+                    quantity: quantity
+                  }
+                ]
+              })
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error('Cart error');
+          }
+
+          addButton.textContent = 'ADDED TO CART';
+
+          try {
+
+            const cartResponse =
+              await fetch(root + 'cart.js');
+
+            const cart =
+              await cartResponse.json();
+
+            document
+              .querySelectorAll('.cart-count')
+              .forEach(function (counter) {
+
+                counter.textContent =
+                  cart.item_count;
+
+                counter.hidden = false;
+
+              });
+
+          } catch (error) {
+            console.error(error);
+          }
+
+          setTimeout(function () {
+
+            addButton.disabled = false;
+            addButton.textContent =
+              'ADD TO CART';
+
+          }, 1400);
+
+        } catch (error) {
+
+          console.error(error);
+
+          addButton.disabled = false;
+          addButton.textContent =
+            'TRY AGAIN';
+
+        }
+
+      });
+
+    }
+
+    updateProduct();
+  }
+
+  function initAllColorways() {
+
+    document
+      .querySelectorAll('[data-colorway-product]')
+      .forEach(function (section) {
+        initColorwayProduct(section);
+      });
+
+  }
+
+  if (document.readyState === 'loading') {
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      initAllColorways
+    );
+
+  } else {
+
+    initAllColorways();
+
+  }
+
+  document.addEventListener(
+    'shopify:section:load',
+    function (event) {
+
+      const section =
+        event.target.querySelector(
+          '[data-colorway-product]'
+        ) ||
+        event.target.closest(
+          '[data-colorway-product]'
+        );
+
+      if (section) {
+
+        section.dataset.initialized = 'false';
+
+        initColorwayProduct(section);
+
+      }
+
+    }
+  );
+
+})();
+</script>
 
 {% schema %}
 {
   "name": "Colorway",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Image" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Colorway" },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Produs"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagine custom opțională"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Text mic",
+      "default": "COLORWAY"
+    },
     {
       "type": "textarea",
       "id": "body",
-      "label": "Text",
+      "label": "Descriere",
       "default": "One heavyweight cut, printed in full colour. Hand-painted lettering pressed with DTF so every shade stays loud after the wash."
     },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop colorway" },
-    { "type": "url", "id": "button_link", "label": "Button link" }
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop colorway"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
   ],
-  "presets": [{ "name": "Colorway" }]
+  "presets": [
+    {
+      "name": "Colorway"
+    }
+  ]
 }
 {% endschema %}
