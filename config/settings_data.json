@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "brand_tagline": "Heavyweight streetwear made in small runs",
@@ -25,6 +34,13 @@
           "company_name": "mischief",
           "hours": "Mon–Fri, 9:00–17:00"
         }
+      }
+    },
+    "blocks": {
+      "mktr_core": {
+        "type": "shopify://apps/themarketer-com-app/blocks/mktr_core/d9993ada-e1dd-43d7-9e04-04a5454109b4",
+        "disabled": false,
+        "settings": {}
       }
     }
   }
