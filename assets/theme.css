@@ -1873,7 +1873,7 @@ svg {
   width: 100% !important;
   height: auto !important;
 
-  aspect-ratio: 16 / 9 !important;
+  aspect-ratio: 1920 / 900 !important;
 
   min-height: 0 !important;
   max-height: none !important;
@@ -1906,14 +1906,14 @@ svg {
 }
 
 
-/* PC VIDEO */
+/* VIDEO PC */
 
 .hero.hero-video .hero__video--desktop {
   display: block !important;
 }
 
 
-/* MOBILE VIDEO ASCUNS PE PC */
+/* VIDEO TELEFON ASCUNS PE PC */
 
 .hero.hero-video .hero__video--mobile {
   display: none !important;
@@ -1933,7 +1933,7 @@ svg {
 
   background: rgba(0, 0, 0, 0.5) !important;
 
-  pointer-events: none;
+  pointer-events: none !important;
 }
 
 
@@ -1950,7 +1950,6 @@ svg {
   padding: 40px 24px !important;
 
   display: flex !important;
-
   flex-direction: column !important;
 
   align-items: center !important;
@@ -2071,7 +2070,6 @@ svg {
 
   .hero.hero-video .hero__button {
     min-width: 150px;
-
     min-height: 42px;
 
     padding: 10px 22px;
